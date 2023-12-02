@@ -1,11 +1,25 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const signupController = require("./controllers/signupController");
+const loginController = require("./controllers/loginController");
+const db = require("./db");
+
 const app = express();
-const port = 3001;
 
-app.get("/", (req, res) => {
-  res.send("Hello, Express!");
-});
+// Middlewares
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors()); // Enable CORS for all routes
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// Routes
+app.post("/api/signup", signupController);
+app.post("/api/login", loginController);
+
+// Other routes and configurations...
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
