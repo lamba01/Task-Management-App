@@ -1,12 +1,14 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require("../db"); // Adjust the path accordingly
-const secretKey = "your-secret-key"; // Replace with your actual secret key
+const db = require("../db");
+require("dotenv").config();
+
+const secretKey = process.env.SECRET_KEY;
 
 async function loginController(req, res) {
   const { email, password, rememberMe } = req.body;
 
-  db.query("SELECT * FROM user WHERE email = ?", [email], (err, results) => {
+  db.query("SELECT * FROM users WHERE email = ?", [email], (err, results) => {
     if (err) {
       console.error("Error querying database:", err);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -33,12 +35,11 @@ async function loginController(req, res) {
           expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
           httpOnly: true,
         };
-
         res.status(200).cookie("token", token, options).json({
           message: "Login successful",
           token,
           userId: user.id,
-          userName: user.name,
+          userName: user.username,
         });
       } else {
         return res.status(401).json({ error: "Incorrect password" });

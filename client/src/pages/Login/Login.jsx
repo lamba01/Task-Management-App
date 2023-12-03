@@ -1,8 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from "axios";
+import { useNavigate, Link } from 'react-router-dom';
 import './login.css'; 
-import { Link } from 'react-router-dom';
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    rememberMe: false,
+  });
+
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+    setFormData({
+      ...formData,
+      [name]: newValue,
+    });
+  };
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response =  await axios.post('/api/login', formData, {
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
+  
+        // Successful login, redirect or perform desired action
+        console.log("Login successful");
+        // Redirect or perform actions here (e.g., set user state, navigate to dashboard)
+        navigate('/')
+      }
+    } catch (err) {
+      if (err.response && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        setError("An error occurred while logging in.");
+      }
+    }
+  };
+
   return (
     <main className='login-main'>
     <section className='login' id='login'>
@@ -11,21 +54,34 @@ const Login = () => {
       </div>
       <p className='msg'>Welcome back</p>
       <div className='form'>
-        <form>
-          <input type="text" placeholder='Email' className='text' id='email' required /><br />
-          <input type="password" placeholder='••••••••••••••' className='password' /><br />
+        <form onSubmit={handleSubmit}>
+          <input
+          name="email"
+          type="text" 
+          placeholder='Email' 
+          className='text' 
+          id='email' 
+          required 
+          onChange={handleChange}/><br />
+          <input 
+          name='password'
+          type="password" 
+          placeholder='••••••••••••••' 
+          className='password' 
+          onChange={handleChange}
+          required/><br />
           <div className="pass"><div>    
           <input
             type="checkbox"
             name="rememberMe"
             id="rememberMe" 
-            // checked={formData.rememberMe}
-            // onChange={handleChange}
+            checked={formData.rememberMe}
+            onChange={handleChange}
           />
           <label htmlFor="remember me">Remember me</label></div>
           <span className='forgot'>Forgot?</span>
           </div>
-          <button type="button" className='btn-login' id='do-login'>Login</button>
+          <button type="submit" className='btn-login' id='do-login'>Login</button>
         </form>
         <div className="separator">
       <div className="line"></div>

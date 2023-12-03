@@ -1,7 +1,10 @@
 import React from 'react'
 
-export default function Home() {
+ function Home() {
+  console.log("just testing")
   return (
     <div>Home</div>
   )
 }
+
+export default Home
