@@ -1,9 +1,11 @@
 import React from 'react'
+import NewsComponent from '../../components/newsComponent'
 
  function Home() {
-  console.log("just testing")
   return (
-    <div>Home</div>
+    <div>Home
+      <NewsComponent />
+    </div>
   )
 }
 

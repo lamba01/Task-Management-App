@@ -27,7 +27,7 @@
 .login .msg {
   text-align: center;
 }
-.login .form input[type="text"].text {
+.login .form input[type="email"].text {
   border: none;
   background: none;
   box-shadow: 0px 2px 0px 0px white;

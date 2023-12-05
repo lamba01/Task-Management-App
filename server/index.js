@@ -1,12 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 // const mysql = require("mysql2");
 const signupController = require("./controllers/signupController");
 const loginController = require("./controllers/loginController");
-const db = require("./db");
 
 const app = express();
 

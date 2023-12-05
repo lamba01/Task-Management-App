@@ -42,6 +42,7 @@ const Login = () => {
         setError(err.response.data.error);
       } else {
         setError("An error occurred while logging in.");
+        
       }
     }
   };
@@ -57,7 +58,7 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <input
           name="email"
-          type="text" 
+          type="email" 
           placeholder='Email' 
           className='text' 
           id='email' 
@@ -90,11 +91,12 @@ const Login = () => {
       </div>
       
       <Link to = {`/register`} className="btn-container">
-      <button type="button" className='btn-login' id='do-login'>Create an account</button>
+      <button type="button" className='btn-login' id='do-create-account'>Create an account</button>
         </Link>
         
       </div>
     </section>
+    {error && <div className="error-message">{error}</div>}
     </main>
   );
 };
