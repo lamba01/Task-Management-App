@@ -1,10 +1,17 @@
 import React from 'react'
-import NewsComponent from '../../components/newsComponent'
-
- function Home() {
+import SideBar from '../../modal/SideBar'
+import TaskBody from '../../modal/TaskBody'
+import NavBar from '../../modal/NavBar'
+import './home.css'
+ 
+function Home() {
   return (
-    <div>Home
-      <NewsComponent />
+    <div>
+    <NavBar />  
+    <main>
+    <SideBar />
+    <TaskBody />
+    </main>
     </div>
   )
 }

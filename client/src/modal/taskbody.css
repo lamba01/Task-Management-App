@@ -1,0 +1,11 @@
+.taskbody {
+  background-color: #20212c;
+  width: 71%;
+  margin-top: 64px;
+}
+.column-header {
+  color: #828fa3;
+  text-transform: capitalize;
+  font-size: 12px;
+  letter-spacing: 5px;
+}

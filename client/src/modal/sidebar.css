@@ -1,0 +1,12 @@
+.sidebar {
+  background-color: #2b2c37;
+  width: 30%;
+  height: 90vh;
+  margin-top: 64px;
+}
+.all-boards {
+  color: #828fa3;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 12px;
+}
