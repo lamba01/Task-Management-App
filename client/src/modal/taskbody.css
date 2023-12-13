@@ -2,6 +2,9 @@
   background-color: #20212c;
   width: 71%;
   margin-top: 64px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
 }
 .column-header {
   color: #828fa3;
