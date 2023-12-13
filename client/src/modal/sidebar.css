@@ -1,8 +1,11 @@
 .sidebar {
   background-color: #2b2c37;
-  width: 30%;
+  width: 100%;
   height: 90vh;
   margin-top: 64px;
+}
+.side {
+  width: 30%;
 }
 .all-boards {
   color: #828fa3;
@@ -10,4 +13,29 @@
   letter-spacing: 5px;
   font-size: 12px;
   padding: 20px;
+}
+@media (max-width: 767px) {
+  .sidebar {
+    width: 80%;
+    position: absolute;
+    height: 200px;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+}
+@media (max-width: 500px) {
+  .sidebar {
+    width: 90%;
+    top: 120px;
+  }
 }
