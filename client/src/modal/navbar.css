@@ -38,7 +38,7 @@
   width: 150px;
   height: 30px;
 }
-.board-name {
+.board-name-container {
   order: 2;
 }
 .navbar a {
@@ -131,5 +131,10 @@
     border: none;
     border-radius: 50px;
     font-size: 30px;
+  }
+  .board-name-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
