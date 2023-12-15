@@ -1,3 +1,8 @@
 main {
   display: flex;
 }
+@media (max-width: 767px) {
+  main {
+    display: block;
+  }
+}

@@ -38,7 +38,7 @@
   width: 150px;
   height: 30px;
 }
-.board-name-container {
+.board-name {
   order: 2;
 }
 .navbar a {
@@ -108,18 +108,21 @@
   color: #ea5555;
   cursor: pointer;
 }
-.mobile-logo {
+.mobile-logo-header {
   display: none;
 }
 .add-task-mobile {
   display: none;
 }
 @media (max-width: 767px) {
+  .menu-items li {
+    margin-left: 1rem;
+  }
   .logo {
     display: none;
   }
-  .mobile-logo {
-    display: block;
+  .mobile-logo-header {
+    display: flex;
   }
   .add-task-btn {
     display: none;
@@ -134,7 +137,9 @@
   }
   .board-name-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-left: 1rem;
+  }
+  .board-name {
+    display: none;
   }
 }

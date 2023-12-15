@@ -24,14 +24,16 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
                 <span className='delete-board'>delete board</span>
               </div>
             )}
-      
       </ul>
-    <div className='board-name-container'>
-    <h1 className='board-name'>test</h1>
+      <h1 className='board-name'>test</h1>
+     <img className ="logo" src={logo} alt="logo" /> 
+     <div className="mobile-logo-header">
+     <img className='mobile-logo' src={mobilelogo} alt="mobile-logo" />
+     <div className='board-name-container'>
+    <h1 className='board-name-mobile'>test</h1>
     <SidebarToggle isOpen={isSidebarVisible} onClick={toggleSidebar} />
     </div>
-     <img className ="logo" src={logo} alt="logo" /> 
-     <img className='mobile-logo' src={mobilelogo} alt="mobile-logo" />
+     </div>
      
     </div>
   </nav>

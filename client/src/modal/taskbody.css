@@ -12,3 +12,9 @@
   font-size: 12px;
   letter-spacing: 5px;
 }
+@media (max-width: 767px) {
+  .taskbody {
+    width: 100%;
+    min-height: 90vh;
+  }
+}
