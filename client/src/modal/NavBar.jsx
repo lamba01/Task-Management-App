@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SlOptionsVertical } from "react-icons/sl"
-import './navbar.css'
+import './styles/navbar.css'
 import SidebarToggle from '../components/SidebarToggle';
 import logo from "./images/logo-light.svg"
 import mobilelogo from "./images/logo-mobile.svg"

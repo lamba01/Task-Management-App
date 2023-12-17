@@ -3,6 +3,7 @@
   width: 100%;
   height: 90vh;
   margin-top: 64px;
+  padding: 20px;
 }
 .side {
   width: 30%;
@@ -12,7 +13,21 @@
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 12px;
-  padding: 20px;
+}
+.new-board-btn {
+  cursor: pointer;
+  color: #635fc7;
+  display: flex;
+  align-items: center;
+}
+.new-board-btn h4 {
+  color: #635fc7;
+  text-transform: capitalize;
+}
+.boardicon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
 }
 @media (max-width: 767px) {
   .sidebar {

@@ -1,5 +1,5 @@
 import React from 'react'
-import './taskbody.css'
+import './styles/taskbody.css'
 
 function TaskBody() {
   return (
