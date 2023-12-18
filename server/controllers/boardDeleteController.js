@@ -1,9 +1,11 @@
+// boardDeleteController.js
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const secretKey = process.env.SECRET_KEY;
 
-async function boardFetchController(req, res) {
+async function boardDeleteController(req, res) {
+  const { taskId } = req.params;
   const token = req.headers.authorization;
 
   try {
@@ -21,30 +23,32 @@ async function boardFetchController(req, res) {
         return res.status(401).json({ error: "Unauthorized" });
       }
 
+      // User is authenticated; you can access their user ID from the 'decoded' object
       const userId = decoded.userId;
 
-      // Fetch boards for the user
+      // Delete the board with the specified ID
       db.query(
-        "SELECT task_id, board_name FROM boards WHERE user_id = ?",
-        [userId],
+        "DELETE FROM boards WHERE user_id = ? AND task_id = ?",
+        [userId, taskId],
         (err, result) => {
           if (err) {
-            console.error("Error fetching boards:", err);
+            console.error("Error deleting board:", err);
             return res.status(500).json({ error: "Internal Server Error" });
           }
 
-          // Extract board names from the result
-          // const boardNames = result.map((board) => board.board_name);
+          if (result.affectedRows === 0) {
+            // No board was deleted, likely due to mismatched user ID or board ID
+            return res.status(404).json({ error: "Board not found" });
+          }
 
-          // return res.json({ boardNames });
-          return res.json({ tasks: result });
+          return res.json({ message: "Board deleted successfully" });
         }
       );
     });
   } catch (error) {
-    console.error("Error in fetchBoards:", error);
+    console.error("Error in boardDeleteController:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
 
-module.exports = boardFetchController;
+module.exports = boardDeleteController;

@@ -1,8 +1,8 @@
-// TaskForm.js
-
 import React, { useState } from 'react';
+import { IoClose } from "react-icons/io5";
+import "./styles/taskform.css";
 
-const TaskForm = ({ onCreateTask }) => {
+const TaskForm = ({ onCreateTask, onClose }) => {
   const [mainTask, setMainTask] = useState('');
   const [subTasks, setSubTasks] = useState(['']);
 
@@ -16,7 +16,15 @@ const TaskForm = ({ onCreateTask }) => {
     setSubTasks([...subTasks, '']);
   };
 
-  const handleCreateTask = () => {
+  const removeSubTask = (index) => {
+    const updatedSubTasks = [...subTasks];
+    updatedSubTasks.splice(index, 1);
+    setSubTasks(updatedSubTasks);
+  };
+
+  const handleCreateTask = (event) => {
+    event.preventDefault();
+
     // Validate the form before creating the task
     if (mainTask.trim() === '') {
       alert('Main task cannot be empty.');
@@ -36,28 +44,57 @@ const TaskForm = ({ onCreateTask }) => {
     setSubTasks(['']);
   };
 
-  return (
-    <div>
-      <label>Main Task:</label>
-      <input
-        type="text"
-        value={mainTask}
-        onChange={(e) => setMainTask(e.target.value)}
-      />
+  const handleClose = () => {
+    // Call the onClose function passed as a prop to close the component
+    onClose();
+  };
 
-      <label>Subtasks:</label>
-      {subTasks.map((subTask, index) => (
-        <div key={index}>
+  return (
+    <div className='taskform-container'>
+      <div className="overlayy"></div>
+      <div className="container">
+        <div className="taskform-header">
+          <h2>add new task</h2>
+          <IoClose className='closee' onClick={handleClose} />
+        </div>
+        <form className='taskform' action="">
+          <label>Task Name</label>
           <input
             type="text"
-            value={subTask}
-            onChange={(e) => handleSubTaskChange(index, e.target.value)}
+            value={mainTask}
+            onChange={(e) => setMainTask(e.target.value)}
           />
-        </div>
-      ))}
-      <button onClick={addSubTask}>Add Subtask</button>
-
-      <button onClick={handleCreateTask}>Create Task</button>
+          <label>Description</label>
+          <textarea
+            className='description-field'
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+          />
+          <label>Subtasks:</label>
+          {subTasks.map((subTask, index) => (
+            <div key={index} className="subtask-container">
+              <input
+                type="text"
+                value={subTask}
+                onChange={(e) => handleSubTaskChange(index, e.target.value)}
+              />
+              <IoClose className='closee' size={'2em'} onClick={() => removeSubTask(index)}/>
+            </div>
+          ))}
+          <button type='button' className='addsubtaskbtn' onClick={addSubTask}>+ Add New Subtask</button>
+          <label>Current Status</label>
+          <select className='task-status' name="" id="">
+            <option value="Todo">Todo</option>
+            <option value="Doing">Doing</option>
+            <option value="Done">Done</option>
+          </select>
+          <button type='button' className='submittaskbtn' onClick={handleCreateTask}>
+            Create Task
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

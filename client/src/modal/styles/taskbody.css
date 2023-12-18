@@ -1,7 +1,7 @@
 .taskbody {
   background-color: #20212c;
   width: 71%;
-  margin-top: 64px;
+  /* margin-top: 64px; */
   display: flex;
   justify-content: space-between;
   padding: 20px 50px;
@@ -21,6 +21,6 @@
 @media (max-width: 767px) {
   .taskbody {
     width: 100%;
-    min-height: 90vh;
+    min-height: 95vh;
   }
 }

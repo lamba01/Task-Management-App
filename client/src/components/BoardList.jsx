@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import boardlogo from "./images/icon-board.svg"
-import "./styles/boardlist.css"
+import boardlogo from "./images/icon-board.svg";
+import "./styles/boardlist.css";
 
 function BoardList({ refreshBoardList }) {
-  const [boardNames, setBoardNames] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -11,7 +11,7 @@ function BoardList({ refreshBoardList }) {
       return;
     }
 
-    // Make a request to fetch board names
+    // Make a request to fetch boards and tasks
     fetch('/api/boards', {
       method: 'GET',
       headers: {
@@ -21,19 +21,23 @@ function BoardList({ refreshBoardList }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setBoardNames(data.boardNames);
+        setTasks(data.tasks);
       })
       .catch((error) => {
-        console.error('Error fetching boards:', error);
+        console.error('Error fetching boards and tasks:', error);
       });
-  }, [refreshBoardList]); 
+  }, [refreshBoardList]);
 
   return (
     <div className='boardlist-container'>
-      <h6 className='all-boards'>all boards ({boardNames.length})</h6>
+      <h6 className='all-boards'>all boards ({tasks.length})</h6>
       <ul>
-        {boardNames.map((boardName, index) => (
-          <li key={index}><img src={boardlogo} className='boardicon' alt="" /><h4>{boardName}</h4></li>
+        {tasks.map((task) => (
+          <li key={task.task_id}>
+            <img src={boardlogo} className='boardicon' alt="" />
+            <h4>{task.board_name}</h4>
+            <p>{task.task_id}</p> 
+          </li>
         ))}
       </ul>
     </div>

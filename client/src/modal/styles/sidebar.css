@@ -1,13 +1,13 @@
 .sidebar {
   background-color: #2b2c37;
   width: 100%;
-  margin-top: 64px;
+  /* margin-top: 64px; */
   padding: 20px;
 }
 .side {
   width: 30%;
   background-color: #2b2c37;
-  height: 100vh;
+  height: 90vh;
 }
 .new-board-btn {
   cursor: pointer;
@@ -34,6 +34,11 @@
 }
 .overlay {
   display: none;
+}
+@media only screen and (max-width: 1024px) and (min-height: 800px) {
+  .side {
+    height: 95vh;
+  }
 }
 @media (max-width: 767px) {
   .side {

@@ -1,10 +1,11 @@
 main {
   display: flex;
+  overflow: hidden;
 }
 @media (max-width: 767px) {
   main {
     display: block;
     position: relative;
-    height: 90vh;
+    height: 93vh;
   }
 }
