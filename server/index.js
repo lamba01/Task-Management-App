@@ -5,6 +5,7 @@ const cors = require("cors");
 const signupController = require("./controllers/signupController");
 const loginController = require("./controllers/loginController");
 const boardController = require("./controllers/boardController");
+const boardFetchController = require("./controllers/boardFetchController");
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors());
 app.post("/api/signup", signupController);
 app.post("/api/login", loginController);
 app.post("/api/add-board", boardController);
+app.get("/api/boards", boardFetchController);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

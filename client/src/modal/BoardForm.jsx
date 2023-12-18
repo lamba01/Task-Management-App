@@ -3,7 +3,7 @@ import "./styles/boardform.css"
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 
-function BoardForm({ onClose }) {
+function BoardForm({ onClose, onBoardAdded }) {
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
@@ -22,7 +22,6 @@ function BoardForm({ onClose }) {
     try {
       // Retrieve the JWT token from local storage
       const token = localStorage.getItem('token');
-      console.log(token)
       if (!token) {
         alert('You are not logged in. Please log in to add products to your cart.');
         navigate('/login')
@@ -46,6 +45,11 @@ function BoardForm({ onClose }) {
       }
   
       console.log('Added board successfully');
+      // Trigger the onBoardAdded callback to inform the parent component
+      if (onBoardAdded) {
+        onBoardAdded();
+      }
+      onClose()
     } catch (error) {
       // Handle errors during fetch
       console.error('Error during fetch:', error.message);
@@ -59,7 +63,7 @@ function BoardForm({ onClose }) {
       };
   return (
     <div className='form-container'>
-        <div className="overlay"></div>
+        <div className="overlays"></div>
         <form onSubmit={handleSubmit} className='form'>
             <div className="header">
                <h2>Add new board</h2>
@@ -69,6 +73,7 @@ function BoardForm({ onClose }) {
                <label htmlFor="">Board Name</label>
                <input 
                type="text" 
+               required
                name="board" 
                onChange={handleInputChange} 
                className='board-input' id="" />

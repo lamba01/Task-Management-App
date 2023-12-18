@@ -1,0 +1,32 @@
+.boardlist-container ul {
+  list-style-type: none;
+}
+.boardlist-container ul li {
+  padding: 15px 0;
+  display: flex;
+  cursor: pointer;
+}
+.boardlist-container ul li:hover {
+  background-color: white;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  margin-left: -20px;
+  padding-left: 20px;
+}
+.boardlist-container ul li:hover h4 {
+  color: #635fc7;
+}
+.boardlist-container ul li h4 {
+  color: #828fa3;
+  font-size: 15px;
+  text-transform: capitalize;
+}
+.boardlogo {
+  margin-left: 0;
+}
+.all-boards {
+  color: #828fa3;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 12px;
+}

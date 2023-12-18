@@ -4,5 +4,7 @@ main {
 @media (max-width: 767px) {
   main {
     display: block;
+    position: relative;
+    height: 90vh;
   }
 }
