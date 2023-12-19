@@ -7,6 +7,7 @@ const loginController = require("./controllers/loginController");
 const boardController = require("./controllers/boardController");
 const boardFetchController = require("./controllers/boardFetchController");
 const boardDeleteController = require("./controllers/boardDeleteController");
+const taskFormController = require("./controllers/taskFormController");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.post("/api/login", loginController);
 app.post("/api/add-board", boardController);
 app.get("/api/boards", boardFetchController);
 app.delete("/api/boards/:taskId", boardDeleteController);
+app.post("/api/tasks", taskFormController);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -1,48 +1,117 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IoClose } from "react-icons/io5";
 import "./styles/taskform.css";
 
-const TaskForm = ({ onCreateTask, onClose }) => {
-  const [mainTask, setMainTask] = useState('');
+const TaskForm = ({onCreateTask, onClose }) => {
+  const navigate = useNavigate()
   const [subTasks, setSubTasks] = useState(['']);
+  const [formData, setFormData] = useState({
+    taskName: "",
+    description: "",
+    subTasks: [''],
+  });
 
-  const handleSubTaskChange = (index, value) => {
-    const updatedSubTasks = [...subTasks];
-    updatedSubTasks[index] = value;
-    setSubTasks(updatedSubTasks);
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
+    if (name === "subTask") {
+      const updatedSubTasks = [...formData.subTasks];
+      updatedSubTasks[index] = value;
+      setFormData({
+        ...formData,
+        subTasks: updatedSubTasks,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
-
   const addSubTask = () => {
+    setFormData({
+      ...formData,
+      subTasks: [...formData.subTasks, ''],
+    });
     setSubTasks([...subTasks, '']);
   };
-
+  
   const removeSubTask = (index) => {
-    const updatedSubTasks = [...subTasks];
+    const updatedSubTasks = [...formData.subTasks];
     updatedSubTasks.splice(index, 1);
+    setFormData({
+      ...formData,
+      subTasks: updatedSubTasks,
+    });
     setSubTasks(updatedSubTasks);
   };
 
-  const handleCreateTask = (event) => {
-    event.preventDefault();
+  // console.log(formData)
+  const selectedBoardId = localStorage.getItem('selectedBoardId');
 
+  // const handleSubTaskChange = (index, value) => {
+  //   const updatedSubTasks = [...subTasks];
+  //   updatedSubTasks[index] = value;
+  //   setSubTasks(updatedSubTasks);
+  // };
+
+
+  const handleCreateTask = async (event) => {
+    event.preventDefault();
+  
     // Validate the form before creating the task
-    if (mainTask.trim() === '') {
+    if (formData.taskName.trim() === '') {
       alert('Main task cannot be empty.');
       return;
     }
-
+  
     const taskData = {
-      mainTask,
-      subTasks: subTasks.filter((subTask) => subTask.trim() !== ''),
+      taskName: formData.taskName,
+      description: formData.description,
+      subTasks: formData.subTasks.filter((subTask) => subTask.trim() !== ''),
+      boardId: selectedBoardId,
+      // Add other fields as needed
     };
-
-    // Call the provided callback to create the task
-    onCreateTask(taskData);
-
-    // Clear the form after creating the task
-    setMainTask('');
-    setSubTasks(['']);
+    try {
+            // Retrieve the JWT token from local storage
+            const token = localStorage.getItem('token');
+            if (!token) {
+              alert('You are not logged in. Please log in to add products to your cart.');
+              navigate('/login')
+              return;
+            }
+      // Make an asynchronous request to your backend API
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(taskData),
+      });
+  
+      if (!response.ok) {
+        // Handle errors here, e.g., display an error message
+        console.error('Error creating task:', response.status, response.statusText);
+        return;
+      }
+      console.log("Successfully created task")
+      // Assuming the request was successful, you can clear the form
+      setFormData({
+        taskName: "",
+        description: "",
+        subTasks: [''],
+        boardId: selectedBoardId, // Reset the boardId if needed
+      });
+  
+      // You can also handle any additional logic after successful task creation
+  
+    } catch (error) {
+      console.error('Error during task creation:', error);
+      // Handle any errors that occur during the fetch or processing
+    }    
   };
+  
 
   const handleClose = () => {
     // Call the onClose function passed as a prop to close the component
@@ -61,24 +130,26 @@ const TaskForm = ({ onCreateTask, onClose }) => {
           <label>Task Name</label>
           <input
             type="text"
-            value={mainTask}
-            onChange={(e) => setMainTask(e.target.value)}
+            name='taskName'
+            onChange={handleChange}
           />
           <label>Description</label>
           <textarea
             className='description-field'
-            name=""
+            name="description"
             id=""
             cols="30"
             rows="10"
+            onChange={handleChange}
           />
           <label>Subtasks:</label>
           {subTasks.map((subTask, index) => (
             <div key={index} className="subtask-container">
               <input
                 type="text"
-                value={subTask}
-                onChange={(e) => handleSubTaskChange(index, e.target.value)}
+                name="subTask"
+                // value={subTask}
+                onChange={(e) => handleChange(e, index)}
               />
               <IoClose className='closee' size={'2em'} onClick={() => removeSubTask(index)}/>
             </div>
@@ -90,7 +161,7 @@ const TaskForm = ({ onCreateTask, onClose }) => {
             <option value="Doing">Doing</option>
             <option value="Done">Done</option>
           </select>
-          <button type='button' className='submittaskbtn' onClick={handleCreateTask}>
+          <button onClick={handleCreateTask} type='button' className='submittaskbtn'>
             Create Task
           </button>
         </form>

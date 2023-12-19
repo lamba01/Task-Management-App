@@ -127,5 +127,23 @@
 @media (max-width: 767px) {
   .container {
     width: 80%;
+    &::-webkit-scrollbar {
+      width: 0px; /* Set the width of the scrollbar */
+    }
+  }
+}
+@media (max-width: 500px) {
+  .container {
+    width: 90%;
+    height: 80vh;
+    top: 0%;
+  }
+  .taskform-container {
+    width: 100vw;
+  }
+}
+@media (max-width: 375px) {
+  .container {
+    padding: 10px;
   }
 }

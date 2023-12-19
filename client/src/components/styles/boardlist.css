@@ -30,3 +30,13 @@
   letter-spacing: 5px;
   font-size: 12px;
 }
+.active {
+  background-color: #635fc7;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  margin-left: -20px;
+  padding-left: 20px;
+}
+.active + .board-name {
+  color: #fff;
+}

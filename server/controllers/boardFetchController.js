@@ -25,7 +25,7 @@ async function boardFetchController(req, res) {
 
       // Fetch boards for the user
       db.query(
-        "SELECT task_id, board_name FROM boards WHERE user_id = ?",
+        "SELECT board_id, board_name FROM boards WHERE user_id = ?",
         [userId],
         (err, result) => {
           if (err) {
