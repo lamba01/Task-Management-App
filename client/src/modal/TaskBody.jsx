@@ -1,10 +1,12 @@
 import React from 'react'
 import './styles/taskbody.css'
+import TaskComponent from '../components/TaskComponent'
 
 function TaskBody() {
   return (
     <div className='taskbody'>
       <div>
+        <TaskComponent />
         <h6 className='column-header'>todo</h6>
       </div>
       <div>

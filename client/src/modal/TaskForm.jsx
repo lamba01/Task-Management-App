@@ -49,13 +49,6 @@ const TaskForm = ({onCreateTask, onClose }) => {
   // console.log(formData)
   const selectedBoardId = localStorage.getItem('selectedBoardId');
 
-  // const handleSubTaskChange = (index, value) => {
-  //   const updatedSubTasks = [...subTasks];
-  //   updatedSubTasks[index] = value;
-  //   setSubTasks(updatedSubTasks);
-  // };
-
-
   const handleCreateTask = async (event) => {
     event.preventDefault();
   
@@ -70,7 +63,6 @@ const TaskForm = ({onCreateTask, onClose }) => {
       description: formData.description,
       subTasks: formData.subTasks.filter((subTask) => subTask.trim() !== ''),
       boardId: selectedBoardId,
-      // Add other fields as needed
     };
     try {
             // Retrieve the JWT token from local storage
@@ -103,6 +95,7 @@ const TaskForm = ({onCreateTask, onClose }) => {
         subTasks: [''],
         boardId: selectedBoardId, // Reset the boardId if needed
       });
+      onClose();
   
       // You can also handle any additional logic after successful task creation
   
@@ -131,6 +124,7 @@ const TaskForm = ({onCreateTask, onClose }) => {
           <input
             type="text"
             name='taskName'
+            required
             onChange={handleChange}
           />
           <label>Description</label>

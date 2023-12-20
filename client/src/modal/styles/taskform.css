@@ -124,6 +124,11 @@
     top: 10%;
   }
 }
+@media only screen and (min-width: 1024px) and (min-height: 1000px) {
+  .taskform-container {
+    height: 50vh;
+  }
+}
 @media (max-width: 767px) {
   .container {
     width: 80%;

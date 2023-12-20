@@ -5,13 +5,13 @@
   padding: 15px 0;
   display: flex;
   cursor: pointer;
+  margin-left: -20px;
+  padding-left: 20px;
 }
 .boardlist-container ul li:hover {
   background-color: white;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
-  margin-left: -20px;
-  padding-left: 20px;
 }
 .boardlist-container ul li:hover h4 {
   color: #635fc7;
@@ -34,9 +34,9 @@
   background-color: #635fc7;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
-  margin-left: -20px;
-  padding-left: 20px;
+  /* margin-left: 20px; */
+  padding-left: 0px;
 }
-.active + .board-name {
+.active h4 {
   color: #fff;
 }

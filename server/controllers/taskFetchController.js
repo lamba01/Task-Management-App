@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const secretKey = process.env.SECRET_KEY;
 
-async function boardFetchController(req, res) {
+async function taskFetchController(req, res) {
+  const boardId = req.params.boardId;
   const token = req.headers.authorization;
 
   try {
@@ -21,19 +22,17 @@ async function boardFetchController(req, res) {
         return res.status(401).json({ error: "Unauthorized" });
       }
 
-      const userId = decoded.userId;
+      //   const userId = decoded.userId;
 
-      // Fetch boards for the user
       db.query(
-        "SELECT board_id, board_name FROM boards WHERE user_id = ?",
-        [userId],
+        "SELECT * FROM tasks WHERE board_id = ?",
+        [boardId],
         (err, result) => {
           if (err) {
             console.error("Error fetching boards:", err);
             return res.status(500).json({ error: "Internal Server Error" });
           }
-
-          return res.json({ boards: result });
+          return res.json({ tasks: result });
         }
       );
     });
@@ -43,4 +42,4 @@ async function boardFetchController(req, res) {
   }
 }
 
-module.exports = boardFetchController;
+module.exports = taskFetchController;
