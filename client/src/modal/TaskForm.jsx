@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoClose } from "react-icons/io5";
+import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import "./styles/taskform.css";
 
-const TaskForm = ({onCreateTask, onClose }) => {
+const TaskForm = ({ onClose }) => {
+  const { updateTask } = useTaskUpdate();
   const navigate = useNavigate()
   const [subTasks, setSubTasks] = useState(['']);
   const [formData, setFormData] = useState({
@@ -65,13 +67,14 @@ const TaskForm = ({onCreateTask, onClose }) => {
       boardId: selectedBoardId,
     };
     try {
-            // Retrieve the JWT token from local storage
-            const token = localStorage.getItem('token');
-            if (!token) {
-              alert('You are not logged in. Please log in to add products to your cart.');
-              navigate('/login')
-              return;
-            }
+       // Retrieve the JWT token from local storage
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You are not logged in. Please log in to add products to your cart.');
+        navigate('/login')
+        return;
+      }
+
       // Make an asynchronous request to your backend API
       const response = await fetch('/api/tasks', {
         method: 'POST',
@@ -88,6 +91,9 @@ const TaskForm = ({onCreateTask, onClose }) => {
         return;
       }
       console.log("Successfully created task")
+            // Notify all registered components about the successful task creation
+            updateTask();
+            
       // Assuming the request was successful, you can clear the form
       setFormData({
         taskName: "",
