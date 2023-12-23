@@ -28,8 +28,13 @@ async function taskFormController(req, res) {
       }
 
       db.query(
-        "INSERT INTO tasks (board_id, task_name, description) VALUES (?, ?, ?)",
-        [taskData.boardId, taskData.taskName, taskData.description],
+        "INSERT INTO tasks (board_id, task_name, description, status) VALUES (?, ?, ?, ?)",
+        [
+          taskData.boardId,
+          taskData.taskName,
+          taskData.description,
+          taskData.status,
+        ],
         (err, result) => {
           if (err) {
             console.error("Error inserting user data:", err);

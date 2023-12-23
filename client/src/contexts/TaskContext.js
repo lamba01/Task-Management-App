@@ -1,25 +1,3 @@
-// // TaskContext.js
-// import React, { createContext, useContext, useState } from "react";
-
-// const TaskContext = createContext();
-
-// export const TaskProvider = ({ children }) => {
-//   const [tasks, setTasks] = useState([]);
-
-//   const updateTasks = (newTasks) => {
-//     setTasks(newTasks);
-//   };
-
-//   return (
-//     <TaskContext.Provider value={{ tasks, updateTasks }}>
-//       {children}
-//     </TaskContext.Provider>
-//   );
-// };
-
-// export const useTask = () => useContext(TaskContext);
-
-// TaskContext.js
 // TaskContext.js
 import React, { createContext, useContext, useReducer } from "react";
 
@@ -49,3 +27,6 @@ export const TaskProvider = ({ children }) => {
 };
 
 export const useTask = () => useContext(TaskContext);
+
+// TaskContext.js
+// TaskContext.js

@@ -1,11 +1,15 @@
 // TaskComponent.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTask } from '../contexts/TaskContext';
+import "./styles/taskcomponent.css";
+import SubTaskComponent from './SubTaskComponent';
 
-function TaskComponent() {
-    const navigate = useNavigate();
-    const { tasks } = useTask();
+function TaskComponent({ status }) {
+  const [subtaskVisible, setSubtaskVisible] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const navigate = useNavigate();
+  const { tasks } = useTask();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -16,21 +20,37 @@ function TaskComponent() {
     }
 
     // No need to fetch tasks here; they are already updated in the context
-  }, [ navigate, tasks]);
+  }, [navigate, tasks]);
+
+  const filteredTasks = tasks.filter(task => task.status === status);
+
+  const handleTaskClick = (taskId) => {
+    setSelectedTaskId(taskId);
+    setSubtaskVisible(true);
+  };
 
   return (
-    <div>
-      <h2>Tasks</h2>
+    <div className='taskcomp-container'>
       <ul>
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <li key={task.task_id}>
-            <h2>{task.task_name}</h2>
-            <p>{task.description}</p>
+            <div className="task-container" onClick={() => handleTaskClick(task.task_id)}>
+              <h5 className='task-name'>{task.task_name}</h5>
+            </div>
           </li>
         ))}
       </ul>
+      {subtaskVisible && (
+        <SubTaskComponent
+          taskId={selectedTaskId}
+          taskName={tasks.find((task) => task.task_id === selectedTaskId)?.task_name}
+          taskDescription={tasks.find((task) => task.task_id === selectedTaskId)?.description}
+          onClose={() => setSubtaskVisible(false)}
+        />
+      )}
     </div>
   );
 }
 
 export default TaskComponent;
+

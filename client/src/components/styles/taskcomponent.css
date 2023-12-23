@@ -1,0 +1,11 @@
+.task-container {
+  background-color: #2b2c37;
+  margin: 10px;
+  cursor: pointer;
+}
+.task-container:hover .task-name {
+  color: #635fc7;
+}
+.taskcomp-container ul {
+  list-style-type: none;
+}

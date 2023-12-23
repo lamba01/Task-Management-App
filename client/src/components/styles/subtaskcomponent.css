@@ -1,0 +1,55 @@
+.overlaye {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 994;
+}
+.subtaskcomp-container {
+  position: fixed;
+  width: 100vw;
+  height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 995;
+}
+.subtask-containerr {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: fit-content;
+  background-color: #2b2c37;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 30px;
+  border-radius: 5px;
+  z-index: 999;
+}
+.subtask-completed {
+  color: #828fa3;
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+.task-desription {
+  color: #828fa3;
+  margin-bottom: 24px;
+}
+.subtask {
+  background-color: #20212c;
+  margin: 8px 0;
+  padding: 13px 12px;
+}
+.subtask input {
+  margin-right: 10px;
+}
+.subtask label {
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 14px;
+}

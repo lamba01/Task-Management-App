@@ -70,7 +70,6 @@ const handleBoardSelect = async (boardId) => {
 // Function to fetch tasks
 const fetchTasks = async (boardId) => {
   try {
-    console.log(boardId);
     const token = localStorage.getItem('token');
     const response = await fetch(`/api/tasks/${boardId}`, {
       method: 'GET',

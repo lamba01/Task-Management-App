@@ -12,8 +12,9 @@ const TaskForm = ({ onClose }) => {
     taskName: "",
     description: "",
     subTasks: [''],
+    status: "Todo"
   });
-
+console.log(formData)
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     if (name === "subTask") {
@@ -23,7 +24,13 @@ const TaskForm = ({ onClose }) => {
         ...formData,
         subTasks: updatedSubTasks,
       });
-    } else {
+    } else if (name === "status") { // Corrected name attribute
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    } 
+     else {
       setFormData({
         ...formData,
         [name]: value,
@@ -65,6 +72,7 @@ const TaskForm = ({ onClose }) => {
       description: formData.description,
       subTasks: formData.subTasks.filter((subTask) => subTask.trim() !== ''),
       boardId: selectedBoardId,
+      status: formData.status
     };
     try {
        // Retrieve the JWT token from local storage
@@ -156,7 +164,13 @@ const TaskForm = ({ onClose }) => {
           ))}
           <button type='button' className='addsubtaskbtn' onClick={addSubTask}>+ Add New Subtask</button>
           <label>Current Status</label>
-          <select className='task-status' name="" id="">
+          <select 
+          className='task-status' 
+          placeholder='select input'
+          name="status" 
+          value={formData.status} 
+          onChange={(e) => handleChange(e)}>
+            
             <option value="Todo">Todo</option>
             <option value="Doing">Doing</option>
             <option value="Done">Done</option>
