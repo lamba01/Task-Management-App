@@ -10,7 +10,8 @@ const boardDeleteController = require("./controllers/boardDeleteController");
 const taskFormController = require("./controllers/taskFormController");
 const taskFetchController = require("./controllers/taskFetchController");
 const subtaskFetchController = require("./controllers/subtaskFetchController");
-
+const getTaskStatusController = require("./controllers/getTaskStatusController");
+const updateTaskStatusController = require("./controllers/updateTaskStatusController");
 const app = express();
 
 // Middlewares
@@ -27,6 +28,8 @@ app.delete("/api/boards/:taskId", boardDeleteController);
 app.post("/api/tasks", taskFormController);
 app.get("/api/tasks/:boardId", taskFetchController);
 app.get("/api/subtasks/:taskId", subtaskFetchController);
+app.get("/api/task/:taskId/status", getTaskStatusController);
+app.put("/api/task/:taskId/status", updateTaskStatusController);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

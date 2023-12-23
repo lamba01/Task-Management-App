@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import './styles/subtaskcomponent.css';
+import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 
 function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
-  const [subtasks, setSubtasks] = useState([]);
-  const [checkedSubtasks, setCheckedSubtasks] = useState(() => {
+    const { updateTask } = useTaskUpdate();
+    const [subtasks, setSubtasks] = useState([]);
+    const [checkedSubtasks, setCheckedSubtasks] = useState(() => {
     // Load checked subtasks from localStorage or default to an empty array
     const storedCheckedSubtasks = localStorage.getItem(`checkedSubtasks-${taskId}`);
     return storedCheckedSubtasks ? JSON.parse(storedCheckedSubtasks) : [];
   });
+  const [currentStatus, setCurrentStatus] = useState(''); // Added state for current status
 
   useEffect(() => {
     const fetchSubtasks = async () => {
@@ -33,7 +36,33 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
         console.error('Error fetching subtasks:', error);
       }
     };
+
+    // Fetch current task status
+    const fetchTaskStatus = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/task/${taskId}/status`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          console.error('Error fetching task status:', response.status, response.statusText);
+          return;
+        }
+
+        const data = await response.json();
+        setCurrentStatus(data.status);
+      } catch (error) {
+        console.error('Error fetching task status:', error);
+      }
+    };
+
     fetchSubtasks();
+    fetchTaskStatus();
   }, [taskId]);
 
   const handleCheckboxChange = (subtaskId) => {
@@ -49,17 +78,45 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     });
   };
 
+  const handleStatusChange = async (event) => {
+    const newStatus = event.target.value;
+
+    // Update the task status in the backend
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/task/${taskId}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (!response.ok) {
+        console.error('Error updating task status:', response.status, response.statusText);
+        return;
+      }
+
+      // If the update is successful, update the currentStatus state
+      setCurrentStatus(newStatus);
+      updateTask();
+    } catch (error) {
+      console.error('Error updating task status:', error);
+    }
+  };
+
   return (
     <div className='subtaskcomp-container'>
       <div onClick={onClose} className='overlaye'></div>
       <div className='subtask-containerr'>
         <div className="header">
-            <h2>{taskName}</h2>
-            <IoClose onClick={onClose} />
+          <h2>{taskName}</h2>
+          <IoClose onClick={onClose} />
         </div>
         <p className='task-desription'>{taskDescription}</p>
         <p className='subtask-completed'>
-          Subtasks ({checkedSubtasks.length} of {subtasks.length}) 
+          Subtasks ({checkedSubtasks.length} of {subtasks.length})
         </p>
         <ul>
           {subtasks.map((subtask) => (
@@ -77,7 +134,12 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
           ))}
         </ul>
         <label>Current Status</label>
-        <select className='task-status' name='' id=''>
+        <select
+          className='task-status'
+          name='status'
+          value={currentStatus} // Set the current status as the selected value
+          onChange={handleStatusChange}
+        >
           <option value='Todo'>Todo</option>
           <option value='Doing'>Doing</option>
           <option value='Done'>Done</option>
@@ -88,5 +150,3 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
 }
 
 export default SubTaskComponent;
-
-
