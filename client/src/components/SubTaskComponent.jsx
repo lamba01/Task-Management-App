@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import './styles/subtaskcomponent.css';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
+import TaskForm from '../modal/TaskForm';
 
 function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     const { updateTask } = useTaskUpdate();
     const [subtasks, setSubtasks] = useState([]);
+    const [isTaskFormOpen, setTaskFormOpen] = useState(false);
     const [checkedSubtasks, setCheckedSubtasks] = useState(() => {
     // Load checked subtasks from localStorage or default to an empty array
     const storedCheckedSubtasks = localStorage.getItem(`checkedSubtasks-${taskId}`);
     return storedCheckedSubtasks ? JSON.parse(storedCheckedSubtasks) : [];
   });
-  const [currentStatus, setCurrentStatus] = useState(''); // Added state for current status
+  const [currentStatus, setCurrentStatus] = useState(''); 
 
   useEffect(() => {
     const fetchSubtasks = async () => {
@@ -77,7 +79,6 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
       return newCheckedSubtasks;
     });
   };
-
   const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
 
@@ -106,7 +107,27 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     }
   };
 
+  const handleEditTask = () => {
+    setTaskFormOpen(true);
+  };
+  const handleClose = () => {
+    // Close TaskForm
+    setTaskFormOpen(false);
+  };
+
   return (
+    <>
+        {isTaskFormOpen && (
+  <TaskForm
+  initialValues={{
+    taskName: taskName,
+    description: taskDescription,
+    subTasks: subtasks.map((subtask) => subtask.subtask_name),
+    status: currentStatus,
+  }}
+  onClose={handleClose}
+/>
+)}
     <div className='subtaskcomp-container'>
       <div onClick={onClose} className='overlaye'></div>
       <div className='subtask-containerr'>
@@ -144,8 +165,10 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
           <option value='Doing'>Doing</option>
           <option value='Done'>Done</option>
         </select>
+        <button onClick={handleEditTask}>Edit</button>
       </div>
     </div>
+    </>
   );
 }
 

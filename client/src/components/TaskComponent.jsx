@@ -10,7 +10,7 @@ function TaskComponent({ status }) {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const navigate = useNavigate();
   const { tasks } = useTask();
-
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -18,7 +18,6 @@ function TaskComponent({ status }) {
       navigate('/login');
       return;
     }
-
     // No need to fetch tasks here; they are already updated in the context
   }, [navigate, tasks]);
 
@@ -45,12 +44,14 @@ function TaskComponent({ status }) {
           taskId={selectedTaskId}
           taskName={tasks.find((task) => task.task_id === selectedTaskId)?.task_name}
           taskDescription={tasks.find((task) => task.task_id === selectedTaskId)?.description}
-          onClose={() => setSubtaskVisible(false)}
+          onClose={() => {setSubtaskVisible(false);}}
         />
       )}
+
     </div>
   );
 }
 
 export default TaskComponent;
+
 
