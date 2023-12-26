@@ -1,45 +1,28 @@
-// import React from 'react'
-// import './styles/taskbody.css'
-// import TaskComponent from '../components/TaskComponent'
-
-// function TaskBody() {
-//   return (
-//     <div className='taskbody'>
-//       <div>
-//         <h6 className='column-header'>todo</h6>
-//         <TaskComponent />
-//       </div>
-//       <div>
-//         <h6 className='column-header'>doing</h6>
-//       </div>
-//       <div>
-//         <h6 className='column-header'>done</h6>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default TaskBody
-
-
 // TaskBody.js
 import React from 'react';
 import './styles/taskbody.css';
 import TaskComponent from '../components/TaskComponent';
+import { useTask } from '../contexts/TaskContext';
 
 function TaskBody() {
+  const { tasks } = useTask();
+
+  const getTaskCount = (status) => {
+    return tasks.filter(task => task.status === status).length;
+  };
+
   return (
     <div className='taskbody'>
       <div>
-        <h6 className='column-header'>todo</h6>
+        <h6 className='column-header'>todo({getTaskCount("Todo")})</h6>
         <TaskComponent status="Todo" />
       </div>
       <div>
-        <h6 className='column-header'>doing</h6>
+        <h6 className='column-header'>doing({getTaskCount("Doing")})</h6>
         <TaskComponent status="Doing" />
       </div>
       <div>
-        <h6 className='column-header'>done</h6>
+        <h6 className='column-header'>done({getTaskCount("Done")})</h6>
         <TaskComponent status="Done" />
       </div>
     </div>

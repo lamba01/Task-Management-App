@@ -27,7 +27,7 @@ function TaskComponent({ status }) {
     setSelectedTaskId(taskId);
     setSubtaskVisible(true);
   };
-
+  
   return (
     <div className='taskcomp-container'>
       <ul>
