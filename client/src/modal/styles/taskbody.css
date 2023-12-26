@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20px 50px;
-  height: 90vh;
+  min-height: 93vh;
 }
 .column-header {
   color: #828fa3;

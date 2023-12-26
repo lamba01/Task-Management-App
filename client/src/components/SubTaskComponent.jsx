@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { IoClose } from 'react-icons/io5';
+import { SlOptionsVertical } from "react-icons/sl"
 import './styles/subtaskcomponent.css';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import TaskForm from '../modal/TaskForm';
 
 function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
     const { updateTask } = useTaskUpdate();
     const [subtasks, setSubtasks] = useState([]);
     const [isTaskFormOpen, setTaskFormOpen] = useState(false);
@@ -14,6 +15,10 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     return storedCheckedSubtasks ? JSON.parse(storedCheckedSubtasks) : [];
   });
   const [currentStatus, setCurrentStatus] = useState(''); 
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
 
   useEffect(() => {
     const fetchSubtasks = async () => {
@@ -135,7 +140,13 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
       <div className='subtask-containerr'>
         <div className="header">
           <h2>{taskName}</h2>
-          <IoClose onClick={onClose} />
+          <div className='toggle-dets' onClick={toggleDropdown}><SlOptionsVertical /></div>
+          {dropdownVisible && (
+              <div className="dropdown-content">
+                <span onClick={handleEditTask} className='edit-board'>edit task</span>
+                <span  className='delete-board'>delete task</span>
+              </div>
+            )}
         </div>
         <p className='task-desription'>{taskDescription}</p>
         <p className='subtask-completed'>
@@ -167,7 +178,6 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
           <option value='Doing'>Doing</option>
           <option value='Done'>Done</option>
         </select>
-        <button onClick={handleEditTask}>Edit</button>
       </div>
     </div>
     </>

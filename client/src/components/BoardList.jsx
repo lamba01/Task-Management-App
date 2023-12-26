@@ -3,12 +3,14 @@ import boardlogo from "./images/icon-board.svg";
 import "./styles/boardlist.css";
 import { useTask } from '../contexts/TaskContext';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
+import { useNavigate } from 'react-router-dom';
 
 function BoardList({ refreshBoardList }) {
   const { updateTasks } = useTask();
   const { registerUpdateTaskCallback, updateTask } = useTaskUpdate();
   const [boards, setBoards] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
+  const navigate = useNavigate();
 
   // Register the callback for task updates
   useEffect(() => {
@@ -25,6 +27,7 @@ function BoardList({ refreshBoardList }) {
     const token = localStorage.getItem('token');
     if (!token) {
       return;
+      navigate('/login');
     }
 
     // Fetch boards when the component mounts
@@ -103,7 +106,7 @@ const fetchTasks = async (boardId) => {
             className={board.board_id === selectedBoardId ? 'active' : ''}
           >
             <img src={boardlogo} className='boardicon' alt="" />
-            <h4 className='board-name'>{board.board_name}</h4>
+            <h4 >{board.board_name}</h4>
           </li>
         ))}
       </ul>
