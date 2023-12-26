@@ -118,16 +118,18 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
   return (
     <>
         {isTaskFormOpen && (
-  <TaskForm
-  initialValues={{
-    taskName: taskName,
-    description: taskDescription,
-    subTasks: subtasks.map((subtask) => subtask.subtask_name),
-    status: currentStatus,
-  }}
-  onClose={handleClose}
-/>
-)}
+            <TaskForm
+              initialValues={{
+              taskId: taskId,
+              taskName: taskName,
+              description: taskDescription,
+              subTasks: subtasks.map((subtask) => subtask.subtask_name),
+              status: currentStatus,
+              }}
+              onClose={handleClose}
+              closeSubComponent={onClose}
+            />
+        )}
     <div className='subtaskcomp-container'>
       <div onClick={onClose} className='overlaye'></div>
       <div className='subtask-containerr'>

@@ -4,7 +4,7 @@ import { IoClose } from 'react-icons/io5';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import './styles/taskform.css';
 
-const TaskForm = ({ onClose, initialValues }) => {
+const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
   const { updateTask } = useTaskUpdate();
   const navigate = useNavigate();
   const [subTasks, setSubTasks] = useState(['']);
@@ -19,6 +19,7 @@ const TaskForm = ({ onClose, initialValues }) => {
   useEffect(() => {
     // Update form data when initialValues change
     setFormData({
+      taskId: initialValues?.taskId || '',
       taskName: initialValues?.taskName || '',
       description: initialValues?.description || '',
       subTasks: initialValues?.subTasks || [''],
@@ -93,20 +94,22 @@ const TaskForm = ({ onClose, initialValues }) => {
         navigate('/login');
         return;
       }
-
-      const response = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(taskData),
-      });
-
-      if (!response.ok) {
-        console.error('Error creating task:', response.status, response.statusText);
-        return;
-      }
+     
+      
+        // Creating a new task
+        const response = await fetch('/api/tasks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(taskData),
+        });
+  
+        if (!response.ok) {
+          console.error('Error creating task:', response.status, response.statusText);
+          return;
+        }
 
       console.log('Successfully created task');
       updateTask();
@@ -124,8 +127,54 @@ const TaskForm = ({ onClose, initialValues }) => {
   };
 
   const handleEditTask = async (event) => {
-    // Handle editing logic here
-    onClose();
+    event.preventDefault();
+
+    const taskData = {
+      taskName: formData.taskName,
+      description: formData.description,
+      subTasks: formData.subTasks.filter((subTask) => subTask.trim() !== ''),
+      status: formData.status,
+    };
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You are not logged in. Please log in to add tasks.');
+        navigate('/login');
+        return;
+      }
+      console.log(initialValues.taskId)
+      const response = await fetch(`/api/tasks/${initialValues.taskId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(taskData),
+        
+      });
+      if (!response.ok) {
+        console.error('Error updating task:', response.status, response.statusText);
+        return;
+      }
+
+      console.log('Successfully updated task');
+      updateTask();
+       // Delete checked subtasks from local storage
+    localStorage.removeItem(`checkedSubtasks-${initialValues.taskId}`);
+
+
+      setFormData({
+        taskName: '',
+        description: '',
+        subTasks: [''],
+        boardId: selectedBoardId,
+      });
+      onClose();
+      closeSubComponent();
+    } catch (error) {
+      console.error('Error during task update:', error);
+    }
   };
 
   const handleClose = () => {
@@ -140,7 +189,7 @@ const TaskForm = ({ onClose, initialValues }) => {
           <h2>{initialValues ? 'edit task' : 'add new task'}</h2>
           <IoClose className="closee" onClick={handleClose} />
         </div>
-        <form className="taskform" action="">
+        <form className="taskform" action=""onSubmit={initialValues ? handleEditTask : handleCreateTask}>
           <label>Task Name</label>
           <input type="text" name="taskName" required value={formData.taskName} onChange={handleChange} />
           <label>Description</label>
@@ -189,3 +238,6 @@ const TaskForm = ({ onClose, initialValues }) => {
 };
 
 export default TaskForm;
+
+
+
