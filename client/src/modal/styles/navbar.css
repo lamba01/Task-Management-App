@@ -40,6 +40,7 @@
 }
 .board-name {
   order: 2;
+  margin-left: -10%;
 }
 .navbar a {
   text-decoration: none;
@@ -137,9 +138,13 @@
   }
   .board-name-container {
     display: flex;
+    align-items: center;
     margin-left: 1rem;
   }
   .board-name {
     display: none;
+  }
+  .board-name-mobile {
+    font-size: 16px;
   }
 }

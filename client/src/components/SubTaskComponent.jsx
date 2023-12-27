@@ -3,12 +3,14 @@ import { SlOptionsVertical } from "react-icons/sl"
 import './styles/subtaskcomponent.css';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import TaskForm from '../modal/TaskForm';
+import DeleteTaskComponent from './DeleteTaskComponent';
 
 function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
   const [dropdownVisible, setDropdownVisible] = useState(false);
     const { updateTask } = useTaskUpdate();
     const [subtasks, setSubtasks] = useState([]);
     const [isTaskFormOpen, setTaskFormOpen] = useState(false);
+    const [isDeleteOpen, setDeleteOpen] = useState(false);
     const [checkedSubtasks, setCheckedSubtasks] = useState(() => {
     // Load checked subtasks from localStorage or default to an empty array
     const storedCheckedSubtasks = localStorage.getItem(`checkedSubtasks-${taskId}`);
@@ -118,11 +120,27 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
   const handleClose = () => {
     // Close TaskForm
     setTaskFormOpen(false);
+    setDeleteOpen(false)
+  };
+  const handleDeleteTask = () => {
+    setDeleteOpen(true);
   };
 
 
   return (
     <>
+    {
+      isDeleteOpen && (
+        <DeleteTaskComponent 
+        initialValues={{
+          taskName: taskName,
+          taskId: taskId
+          }}
+          onClose={handleClose}
+          closeSubComponent={onClose}
+        />
+      )
+    }
         {isTaskFormOpen && (
             <TaskForm
               initialValues={{
@@ -145,7 +163,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
           {dropdownVisible && (
               <div className="dropdown-content">
                 <span onClick={handleEditTask} className='edit-board'>edit task</span>
-                <span  className='delete-board'>delete task</span>
+                <span onClick={handleDeleteTask}  className='delete-board'>delete task</span>
               </div>
             )}
         </div>

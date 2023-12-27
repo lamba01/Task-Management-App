@@ -14,6 +14,7 @@ const getTaskStatusController = require("./controllers/getTaskStatusController")
 const updateTaskStatusController = require("./controllers/updateTaskStatusController");
 const taskFormEditController = require("./controllers/taskFormEditController");
 const navBoardFetch = require("./controllers/navBoardFetch");
+const deleteTaskController = require("./controllers/deleteTaskController");
 const app = express();
 
 // Middlewares
@@ -34,6 +35,7 @@ app.get("/api/subtasks/:taskId", subtaskFetchController);
 app.get("/api/task/:taskId/status", getTaskStatusController);
 app.put("/api/task/:taskId/status", updateTaskStatusController);
 app.put("/api/tasks/:taskId", taskFormEditController);
+app.delete("/api/tasks/:taskId", deleteTaskController);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

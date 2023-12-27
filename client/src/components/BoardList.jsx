@@ -28,8 +28,8 @@ function BoardList({ refreshBoardList }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      return;
       navigate('/login');
+      return;
     }
 
     // Fetch boards when the component mounts
@@ -56,7 +56,7 @@ function BoardList({ refreshBoardList }) {
         console.error('Error fetching boards:', error);
       }
     }
-  }, [refreshBoardList]);
+  }, [refreshBoardList, navigate]);
 
 
 // Function to handle board selection
