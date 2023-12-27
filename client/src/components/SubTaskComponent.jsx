@@ -120,6 +120,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     setTaskFormOpen(false);
   };
 
+
   return (
     <>
         {isTaskFormOpen && (
@@ -138,7 +139,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     <div className='subtaskcomp-container'>
       <div onClick={onClose} className='overlaye'></div>
       <div className='subtask-containerr'>
-        <div className="header">
+        <div className="subtask-header">
           <h2>{taskName}</h2>
           <div className='toggle-dets' onClick={toggleDropdown}><SlOptionsVertical /></div>
           {dropdownVisible && (

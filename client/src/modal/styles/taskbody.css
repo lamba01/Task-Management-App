@@ -1,18 +1,20 @@
 .taskbody {
   background-color: #20212c;
-  width: 71%;
+  width: 70%;
   /* margin-top: 64px; */
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 50px;
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
   min-height: 93vh;
+  padding: 0;
 }
 .column-header {
   color: #828fa3;
   text-transform: capitalize;
   font-size: 12px;
   letter-spacing: 5px;
+  padding: 10px;
 }
+
 @media only screen and (max-width: 1024px) and (min-height: 800px) {
   .taskbody {
     height: 95vh;

@@ -13,15 +13,15 @@ function TaskBody() {
 
   return (
     <div className='taskbody'>
-      <div>
+      <div className='column'>
         <h6 className='column-header'>todo({getTaskCount("Todo")})</h6>
         <TaskComponent status="Todo" />
       </div>
-      <div>
+      <div className='column'>
         <h6 className='column-header'>doing({getTaskCount("Doing")})</h6>
         <TaskComponent status="Doing" />
       </div>
-      <div>
+      <div className='column'>
         <h6 className='column-header'>done({getTaskCount("Done")})</h6>
         <TaskComponent status="Done" />
       </div>

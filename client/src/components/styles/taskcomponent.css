@@ -2,10 +2,23 @@
   background-color: #2b2c37;
   margin: 10px;
   cursor: pointer;
+  padding: 20px 10px;
+  width: 90%;
+  white-space: normal;
+  word-wrap: break-word;
 }
 .task-container:hover .task-name {
   color: #635fc7;
 }
+.task-name {
+  font-size: 16px;
+  text-transform: capitalize;
+}
 .taskcomp-container ul {
   list-style-type: none;
+}
+.subtasks-info {
+  color: #828fa3;
+  font-size: 10px;
+  font-weight: 700;
 }

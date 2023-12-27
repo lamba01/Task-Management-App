@@ -21,7 +21,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40%;
-  /* height: fit-content; */
   max-height: 90%;
   overflow-y: auto;
   background-color: #2b2c37;
@@ -31,6 +30,16 @@
   padding: 20px 30px;
   border-radius: 5px;
   z-index: 999;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.subtask-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.subtask-header h2 {
+  width: 90%;
 }
 .subtask-completed {
   color: #828fa3;

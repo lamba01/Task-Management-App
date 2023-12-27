@@ -3,10 +3,12 @@ import boardlogo from "./images/icon-board.svg";
 import "./styles/boardlist.css";
 import { useTask } from '../contexts/TaskContext';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
+import { useBoard } from '../contexts/BoardContext';
 import { useNavigate } from 'react-router-dom';
 
 function BoardList({ refreshBoardList }) {
   const { updateTasks } = useTask();
+  const { updateSelectedBoard } = useBoard();
   const { registerUpdateTaskCallback, updateTask } = useTaskUpdate();
   const [boards, setBoards] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
@@ -64,6 +66,7 @@ const handleBoardSelect = async (boardId) => {
 
   // Store the selected board ID in local storage
   localStorage.setItem('selectedBoardId', boardId);
+  updateSelectedBoard(boardId);
 
   // Fetch tasks immediately
   await fetchTasks(boardId);
