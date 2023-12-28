@@ -6,12 +6,14 @@ import TaskForm from './TaskForm';
 import logo from './images/logo-light.svg';
 import mobilelogo from './images/logo-mobile.svg';
 import { useBoard } from '../contexts/BoardContext';
+import EditBoardForm from './EditBoardForm';
 
 const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const { selectedBoard } = useBoard();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [taskformVisible, setTaskformVisible] = useState(false);
   const [BoardName, setBoardName] = useState('');
+  const [isBoardFormOpen, setBoardFormOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -20,6 +22,10 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const toggleTaskform = () => {
     setTaskformVisible(!taskformVisible);
   };
+
+  const toggleBoardform = () => {
+    setBoardFormOpen(!isBoardFormOpen)
+  }
 
    // Fetch the selected board name when selectedBoard changes
    useEffect(() => {
@@ -66,7 +72,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
           </li>
           {dropdownVisible && (
             <div className="dropdown-content">
-              <span className="edit-board">edit board</span>
+              <span onClick={toggleBoardform} className="edit-board">edit board</span>
               <span className="delete-board">delete board</span>
             </div>
           )}
@@ -82,6 +88,12 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
         </div>
       </div>
       {taskformVisible && <TaskForm onClose={toggleTaskform} />}
+      {isBoardFormOpen && (
+        <EditBoardForm 
+        onClose={toggleBoardform}
+        onCloseComponent={toggleDropdown}
+        />
+      )}
     </nav>
   );
 };

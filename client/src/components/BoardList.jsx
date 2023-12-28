@@ -6,6 +6,7 @@ import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import { useBoard } from '../contexts/BoardContext';
 import { useNavigate } from 'react-router-dom';
 
+
 function BoardList({ refreshBoardList }) {
   const { updateTasks } = useTask();
   const { updateSelectedBoard } = useBoard();

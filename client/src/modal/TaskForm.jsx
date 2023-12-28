@@ -162,8 +162,6 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
       updateTask();
        // Delete checked subtasks from local storage
     localStorage.removeItem(`checkedSubtasks-${initialValues.taskId}`);
-
-
       setFormData({
         taskName: '',
         description: '',

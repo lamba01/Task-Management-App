@@ -15,6 +15,7 @@ const updateTaskStatusController = require("./controllers/updateTaskStatusContro
 const taskFormEditController = require("./controllers/taskFormEditController");
 const navBoardFetch = require("./controllers/navBoardFetch");
 const deleteTaskController = require("./controllers/deleteTaskController");
+const updateBoardController = require("./controllers/updateBoardController");
 const app = express();
 
 // Middlewares
@@ -28,6 +29,7 @@ app.post("/api/login", loginController);
 app.post("/api/add-board", boardController);
 app.get("/api/boards", boardFetchController);
 app.get("/api/boards/:boardId", navBoardFetch);
+app.put("/api/boards/:boardId", updateBoardController);
 app.delete("/api/boards/:taskId", boardDeleteController);
 app.post("/api/tasks", taskFormController);
 app.get("/api/tasks/:boardId", taskFetchController);
