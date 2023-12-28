@@ -6,10 +6,12 @@ import TaskForm from './TaskForm';
 import logo from './images/logo-light.svg';
 import mobilelogo from './images/logo-mobile.svg';
 import { useBoard } from '../contexts/BoardContext';
+import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import EditBoardForm from './EditBoardForm';
 
 const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const { selectedBoard } = useBoard();
+  const { registerUpdateBoardCallback } = useBoardUpdate();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [taskformVisible, setTaskformVisible] = useState(false);
   const [BoardName, setBoardName] = useState('');
@@ -29,34 +31,38 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
 
    // Fetch the selected board name when selectedBoard changes
    useEffect(() => {
-    if (selectedBoard) {
-      fetchBoardDetails(selectedBoard);
-    }
-  }, [selectedBoard]);
+    // Callback to fetch board details
+    const fetchBoardDetailsCallback = async () => {
+      if (selectedBoard) {
+        try {
+          const response = await fetch(`/api/boards/${selectedBoard}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
   
-  // Function to fetch board details
-  const fetchBoardDetails = async (boardId) => {
-    try {
-      // const token = localStorage.getItem('token');
-      const response = await fetch(`/api/boards/${boardId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+          if (!response.ok) {
+            console.error('Error fetching board details:', response.status, response.statusText);
+            return;
+          }
   
-      if (!response.ok) {
-        console.error('Error fetching board details:', response.status, response.statusText);
-        return;
+          const data = await response.json();
+          const boardName = data.board[0].board_name;
+          setBoardName(boardName);
+        } catch (error) {
+          console.error('Error fetching board details:', error);
+        }
       }
+    };
   
-      const data = await response.json();
-      const boardName = data.board[0].board_name;
-      setBoardName(boardName);
-    } catch (error) {
-      console.error('Error fetching board details:', error);
-    }
-  };
+    // Register a callback to be notified when boards are updated
+    registerUpdateBoardCallback(fetchBoardDetailsCallback);
+  
+    // Fetch initial board details
+    fetchBoardDetailsCallback();
+  }, [selectedBoard, registerUpdateBoardCallback]);
+  
     return (
     <nav className="navbar">
       <div className="navbar-container containerr">

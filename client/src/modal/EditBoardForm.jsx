@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useBoard } from '../contexts/BoardContext';
+import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import { useNavigate } from 'react-router-dom';
 import "./styles/editboard.css"
 
 function EditBoardForm({ onClose, onCloseComponent }) {
   const { selectedBoard } = useBoard();
+  const { updateBoard } = useBoardUpdate();
   const [boardName, setBoardName] = useState('');
   const navigate = useNavigate();
 
@@ -63,7 +65,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
         console.error('Error updating board name:', response.status, response.statusText);
         return;
       }    
-
+      updateBoard()
       // For now, let's just log the updated board name
       console.log('Board name updated:', boardName);
     } catch (error) {

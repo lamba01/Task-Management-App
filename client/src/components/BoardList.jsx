@@ -4,13 +4,15 @@ import "./styles/boardlist.css";
 import { useTask } from '../contexts/TaskContext';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import { useBoard } from '../contexts/BoardContext';
+import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import { useNavigate } from 'react-router-dom';
 
 
 function BoardList({ refreshBoardList }) {
   const { updateTasks } = useTask();
   const { updateSelectedBoard } = useBoard();
-  const { registerUpdateTaskCallback, updateTask } = useTaskUpdate();
+  const { registerUpdateTaskCallback } = useTaskUpdate();
+  const { registerUpdateBoardCallback } = useBoardUpdate();
   const [boards, setBoards] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
   const navigate = useNavigate();
@@ -32,10 +34,13 @@ function BoardList({ refreshBoardList }) {
       navigate('/login');
       return;
     }
-
-    // Fetch boards when the component mounts
-    fetchBoards();
-
+  
+    // Register a callback to be notified when boards are updated
+    registerUpdateBoardCallback(() => {
+      // Fetch updated boards
+      fetchBoards();
+    });
+  
     async function fetchBoards() {
       try {
         const response = await fetch('/api/boards', {
@@ -45,21 +50,23 @@ function BoardList({ refreshBoardList }) {
             Authorization: `Bearer ${token}`,
           },
         });
-
+  
         if (!response.ok) {
           console.error('Error fetching boards:', response.status, response.statusText);
           return;
         }
-
+  
         const data = await response.json();
         setBoards(data.boards);
       } catch (error) {
         console.error('Error fetching boards:', error);
       }
     }
-  }, [refreshBoardList, navigate]);
-
-
+  
+    // Fetch boards when the component mounts
+    fetchBoards();
+  }, [refreshBoardList, navigate, registerUpdateBoardCallback]);
+  
 // Function to handle board selection
 const handleBoardSelect = async (boardId) => {
   // Update the selectedBoardId immediately

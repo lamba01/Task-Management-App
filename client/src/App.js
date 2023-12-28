@@ -6,6 +6,7 @@ import SignUp from "./pages/Signup/SignUp";
 import { TaskUpdateProvider } from "./contexts/TaskUpdateContext";
 import { TaskProvider } from "./contexts/TaskContext";
 import { BoardProvider } from "./contexts/BoardContext";
+import { BoardUpdateProvider } from "./contexts/BoardupdateContext";
 
 function App() {
   return (
@@ -13,11 +14,13 @@ function App() {
       <TaskProvider>
         <TaskUpdateProvider>
           <BoardProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<SignUp />} />
-            </Routes>
+            <BoardUpdateProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<SignUp />} />
+              </Routes>
+            </BoardUpdateProvider>
           </BoardProvider>
         </TaskUpdateProvider>
       </TaskProvider>
