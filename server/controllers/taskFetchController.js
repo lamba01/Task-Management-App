@@ -32,6 +32,7 @@ async function taskFetchController(req, res) {
             console.error("Error fetching boards:", err);
             return res.status(500).json({ error: "Internal Server Error" });
           }
+
           return res.json({ tasks: result });
         }
       );

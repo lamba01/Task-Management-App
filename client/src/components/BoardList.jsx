@@ -43,6 +43,12 @@ function BoardList({ refreshBoardList }) {
   
     async function fetchBoards() {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          alert('You are not logged in. Please log in to add products to your cart.');
+          navigate('/login');
+          return;
+        }
         const response = await fetch('/api/boards', {
           method: 'GET',
           headers: {
@@ -50,7 +56,12 @@ function BoardList({ refreshBoardList }) {
             Authorization: `Bearer ${token}`,
           },
         });
-  
+
+        if (response.status === 401) {
+          // Unauthorized (invalid token), navigate to the login page
+          navigate('/login');
+          return;
+        }
         if (!response.ok) {
           console.error('Error fetching boards:', response.status, response.statusText);
           return;
@@ -60,6 +71,7 @@ function BoardList({ refreshBoardList }) {
         setBoards(data.boards);
       } catch (error) {
         console.error('Error fetching boards:', error);
+      
       }
     }
   

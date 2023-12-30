@@ -53,7 +53,12 @@ function BoardForm({ onClose, onBoardAdded }) {
     } catch (error) {
       // Handle errors during fetch
       console.error('Error during fetch:', error.message);
+      // Check if the error status is 401 and navigate to login
+      if (error.message.includes('401')) {
+        navigate('/login');
+       }
     }
+
   };
   
 
