@@ -15,7 +15,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 45%;
-  /* height: 40%; */
   background-color: #2b2c37;
   padding: 40px 30px;
   border-radius: 5px;
@@ -29,6 +28,9 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 600;
+}
+strong {
+  color: #828fa3;
 }
 .buttons {
   display: flex;
@@ -68,4 +70,25 @@
 .delete p {
   color: #828fa3;
   padding: 24px 0;
+}
+@media only screen and (max-width: 1024px) and (min-height: 800px) {
+  .delete {
+    width: 50%;
+  }
+}
+@media (max-width: 767px) {
+  .delete {
+    width: 90%;
+    top: 50%;
+  }
+}
+@media (max-width: 500px) {
+  .delete {
+    width: 90%;
+  }
+}
+@media (max-width: 375px) {
+  .delete {
+    padding: 20px 15px;
+  }
 }

@@ -30,7 +30,7 @@ app.post("/api/add-board", boardController);
 app.get("/api/boards", boardFetchController);
 app.get("/api/boards/:boardId", navBoardFetch);
 app.put("/api/boards/:boardId", updateBoardController);
-app.delete("/api/boards/:taskId", boardDeleteController);
+app.delete("/api/boards/:boardId", boardDeleteController);
 app.post("/api/tasks", taskFormController);
 app.get("/api/tasks/:boardId", taskFetchController);
 app.get("/api/subtasks/:taskId", subtaskFetchController);

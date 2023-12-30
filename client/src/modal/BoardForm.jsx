@@ -77,11 +77,12 @@ function BoardForm({ onClose, onBoardAdded }) {
             <div className='input-container'>
                <label htmlFor="">Board Name</label>
                <input 
-               type="text" 
-               required
-               name="board" 
-               onChange={handleInputChange} 
-               className='board-input' id="" />
+                  type="text" 
+                  required
+                  name="board" 
+                  onChange={handleInputChange} 
+                  className='board-input' id=""
+               />
             </div>
             <button type="submit" className='submit-btn'>Create New Board</button>
         </form>

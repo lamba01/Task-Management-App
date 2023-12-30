@@ -39,14 +39,20 @@ const Login = () => {
       }
     } catch (err) {
       if (err.response && err.response.data.error) {
-        setError(err.response.data.error);
+        const errorMessage = err.response.data.error;  
+        // Differentiate between user not found and incorrect password errors
+        if (errorMessage === 'User not found') {
+          setError('User not found. Please check your email.');
+        } else if (errorMessage === 'Incorrect password') {
+          setError('Incorrect password. Please try again.');
+        } else {
+          setError('An error occurred while logging in.');
+        }
       } else {
-        setError("An error occurred while logging in.");
-        
+        setError('An error occurred while logging in.');
       }
     }
-  };
-
+  }
   return (
     <main className='login-main'>
     <section className='login' id='login'>
@@ -71,7 +77,8 @@ const Login = () => {
           className='password' 
           onChange={handleChange}
           required/><br />
-          <div className="pass"><div>    
+          {error && <div className="error-message">{error}</div>}
+          <div className="pass"><div>         
           <input
             type="checkbox"
             name="rememberMe"
@@ -89,14 +96,11 @@ const Login = () => {
       <p>or</p>
       <div className="line"></div>
       </div>
-      
       <Link to = {`/register`} className="btn-container">
       <button type="button" className='btn-login' id='do-create-account'>Create an account</button>
         </Link>
-        
       </div>
     </section>
-    {error && <div className="error-message">{error}</div>}
     </main>
   );
 };

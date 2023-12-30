@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./styles/deletetaskcomponent.css";
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 
-function DeleteTaskComponent({ onClose, initialValues, closeSubComponent }) {
+function DeleteTaskComponent({ onClose, closeDropdown, initialValues, closeSubComponent }) {
     const { updateTask } = useTaskUpdate();
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +35,10 @@ function DeleteTaskComponent({ onClose, initialValues, closeSubComponent }) {
       setLoading(false);
     }
   };
+  const handleClose = () => {
+    onClose()
+    closeDropdown()
+  }
 
   return (
     <div className='delete-task-container'>
@@ -46,7 +50,7 @@ function DeleteTaskComponent({ onClose, initialValues, closeSubComponent }) {
           <button className='delete-btn' onClick={handleDelete} disabled={loading}>
             {loading ? 'Deleting...' : 'Delete'}
           </button>
-          <button className='cancel-btn' onClick={onClose} disabled={loading}>
+          <button className='cancel-btn' onClick={handleClose} disabled={loading}>
             Cancel
           </button>
         </div>

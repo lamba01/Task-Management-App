@@ -138,6 +138,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
           }}
           onClose={handleClose}
           closeSubComponent={onClose}
+          closeDropdown={toggleDropdown}
         />
       )
     }

@@ -5,7 +5,7 @@ require("dotenv").config();
 const secretKey = process.env.SECRET_KEY;
 
 async function boardDeleteController(req, res) {
-  const { taskId } = req.params;
+  const { boardId } = req.params;
   const token = req.headers.authorization;
 
   try {
@@ -28,8 +28,8 @@ async function boardDeleteController(req, res) {
 
       // Delete the board with the specified ID
       db.query(
-        "DELETE FROM boards WHERE user_id = ? AND task_id = ?",
-        [userId, taskId],
+        "DELETE FROM boards WHERE user_id = ? AND board_id = ?",
+        [userId, boardId],
         (err, result) => {
           if (err) {
             console.error("Error deleting board:", err);
@@ -41,7 +41,36 @@ async function boardDeleteController(req, res) {
             return res.status(404).json({ error: "Board not found" });
           }
 
-          return res.json({ message: "Board deleted successfully" });
+          // Delete tasks associated with the board
+          db.query(
+            "DELETE FROM tasks WHERE board_id = ?",
+            [boardId],
+            (taskErr, taskResult) => {
+              if (taskErr) {
+                console.error("Error deleting tasks:", taskErr);
+                return res.status(500).json({ error: "Internal Server Error" });
+              }
+
+              // Delete subtasks associated with the tasks
+              db.query(
+                "DELETE FROM subtasks WHERE task_id IN (SELECT task_id FROM tasks WHERE board_id = ?)",
+                [boardId],
+                (subtaskErr, subtaskResult) => {
+                  if (subtaskErr) {
+                    console.error("Error deleting subtasks:", subtaskErr);
+                    return res
+                      .status(500)
+                      .json({ error: "Internal Server Error" });
+                  }
+
+                  return res.json({
+                    message:
+                      "Board and associated tasks/subtasks deleted successfully",
+                  });
+                }
+              );
+            }
+          );
         }
       );
     });

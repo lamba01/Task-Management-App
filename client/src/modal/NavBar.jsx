@@ -8,6 +8,7 @@ import mobilelogo from './images/logo-mobile.svg';
 import { useBoard } from '../contexts/BoardContext';
 import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import EditBoardForm from './EditBoardForm';
+import DeleteBoardComponent from '../components/DeleteBoardComponent';
 
 const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const { selectedBoard } = useBoard();
@@ -16,9 +17,14 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const [taskformVisible, setTaskformVisible] = useState(false);
   const [BoardName, setBoardName] = useState('');
   const [isBoardFormOpen, setBoardFormOpen] = useState(false);
+  const [isDeleteBoardOpen, setDeleteBoardOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
+  };
+
+  const toggleBoarddelete = () => {
+    setDeleteBoardOpen(!isDeleteBoardOpen);
   };
 
   const toggleTaskform = () => {
@@ -79,7 +85,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
           {dropdownVisible && (
             <div className="dropdown-content">
               <span onClick={toggleBoardform} className="edit-board">edit board</span>
-              <span className="delete-board">delete board</span>
+              <span onClick={toggleBoarddelete} className="delete-board">delete board</span>
             </div>
           )}
         </ul>
@@ -97,6 +103,12 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
       {isBoardFormOpen && (
         <EditBoardForm 
         onClose={toggleBoardform}
+        onCloseComponent={toggleDropdown}
+        />
+      )} 
+      {isDeleteBoardOpen && (
+        <DeleteBoardComponent 
+        onClose={toggleBoarddelete}
         onCloseComponent={toggleDropdown}
         />
       )}

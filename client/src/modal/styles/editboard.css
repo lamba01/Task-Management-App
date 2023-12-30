@@ -9,14 +9,17 @@
   justify-content: center;
   align-items: center;
 }
-.container {
+.editcontainer {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40%;
-  height: 90%;
+  width: 35%;
+  height: fit-content;
   background-color: #2b2c37;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 30px;
   border-radius: 5px;
   z-index: 999;
@@ -31,5 +34,49 @@
   z-index: 600;
 }
 .editinput {
-  color: black;
+  background-color: #2b2c37;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #828fa3;
+}
+.edit-input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+.edit-input-container label {
+  margin: 10px 0px;
+}
+.submit-board-edit {
+  padding: 15px 0px;
+  border-radius: 50px;
+  background-color: #635fc7;
+  border: none;
+  cursor: pointer;
+  margin: 20px 0 0 0;
+}
+.submit-board-edit:hover {
+  background-color: #908ded;
+}
+@media only screen and (max-width: 1024px) and (min-height: 800px) {
+  .editcontainer {
+    width: 60%;
+  }
+}
+@media (max-width: 767px) {
+  .editcontainer {
+    width: 90%;
+    top: 50%;
+  }
+}
+@media (max-width: 500px) {
+  .editcontainer {
+    width: 90%;
+  }
+}
+@media (max-width: 375px) {
+  .editcontainer {
+    padding: 20px 15px;
+  }
 }

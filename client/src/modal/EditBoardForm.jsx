@@ -66,8 +66,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
         return;
       }    
       updateBoard()
-      // For now, let's just log the updated board name
-      console.log('Board name updated:', boardName);
+      handleClose()
     } catch (error) {
       console.error('Error updating board name:', error);
     }
@@ -82,24 +81,23 @@ function EditBoardForm({ onClose, onCloseComponent }) {
     onClose()
     onCloseComponent()
   }
-
   return (
     <div className='editboardcontainer'>
-        <div onClick={handleClose} className="overlayy"></div>
-        <div className="container">
-      <h2>Edit Board</h2>
-      <form onSubmit={handleFormSubmit}>
-        <label htmlFor="boardName">Board Name:</label>
-        <input
-          type="text"
-          id="boardName"
-          value={boardName}
-          className='editinput'
-          onChange={handleInputChange}
-        />
-        <button type="submit">Save Changes</button>
-      </form>
-      </div>
+        <div onClick={handleClose} className="overlayy"></div>      
+        <form className="editcontainer" onSubmit={handleFormSubmit}>
+            <h2>Edit Board</h2>
+            <div className='edit-input-container'>
+            <label htmlFor="boardName">Board Name</label>
+                <input
+                    type="text"
+                    id="boardName"
+                    value={boardName}
+                    className='editinput'
+                    onChange={handleInputChange}
+                />
+            </div>              
+               <button type="submit" className='submit-board-edit'>Save Changes</button>
+        </form>      
     </div>
   );
 }
