@@ -87,6 +87,7 @@ const handleBoardSelect = async (boardId) => {
   // Store the selected board ID in local storage
   localStorage.setItem('selectedBoardId', boardId);
   updateSelectedBoard(boardId);
+  
 
   // Fetch tasks immediately
   await fetchTasks(boardId);

@@ -22,3 +22,9 @@
   font-size: 10px;
   font-weight: 700;
 }
+@media (max-width: 767px) {
+  .task-container {
+    width: 95%;
+    margin: 10px auto;
+  }
+}
