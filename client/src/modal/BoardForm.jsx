@@ -24,7 +24,6 @@ function BoardForm({ onClose, onBoardAdded }) {
       // Retrieve the JWT token from local storage
       const token = localStorage.getItem('token');
       if (!token) {
-        alert('You are not logged in. Please log in to create a board.');
         navigate('/login')
         return;
       }

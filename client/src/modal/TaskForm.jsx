@@ -93,7 +93,6 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        alert('You are not logged in. Please log in to add products to your cart.');
         navigate('/login');
         return;
       }

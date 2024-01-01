@@ -15,7 +15,6 @@ function TaskComponent({ status }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('You are not logged in. Please log in to create a board.');
       navigate('/login');
       return;
     }
