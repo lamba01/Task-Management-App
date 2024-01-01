@@ -39,6 +39,10 @@ app.put("/api/task/:taskId/status", updateTaskStatusController);
 app.put("/api/tasks/:taskId", taskFormEditController);
 app.delete("/api/tasks/:taskId", deleteTaskController);
 
+app.get("/", (req, res) => {
+  res.send("Hello, this is the root path!");
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

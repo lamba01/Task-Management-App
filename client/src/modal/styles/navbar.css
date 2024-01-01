@@ -41,6 +41,7 @@
 .board-name {
   order: 2;
   margin-left: -10%;
+  text-transform: capitalize;
 }
 .navbar a {
   text-decoration: none;
@@ -146,5 +147,6 @@
   }
   .board-name-mobile {
     font-size: 16px;
+    text-transform: capitalize;
   }
 }

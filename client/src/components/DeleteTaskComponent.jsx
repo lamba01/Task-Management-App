@@ -45,7 +45,7 @@ function DeleteTaskComponent({ onClose, closeDropdown, initialValues, closeSubCo
       <div className="overlayy"></div>
       <div className="delete">
         <h3>Delete this task?</h3>
-        <p>Are you sure you want to delete the {initialValues.taskName} task and its subtasks? This action cannot be reversed.</p>
+        <p>Are you sure you want to delete the "{initialValues.taskName}" task and its subtasks? This action cannot be reversed.</p>
         <div className="buttons">
           <button className='delete-btn' onClick={handleDelete} disabled={loading}>
             {loading ? 'Deleting...' : 'Delete'}
