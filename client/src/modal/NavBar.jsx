@@ -18,6 +18,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const [BoardName, setBoardName] = useState('');
   const [isBoardFormOpen, setBoardFormOpen] = useState(false);
   const [isDeleteBoardOpen, setDeleteBoardOpen] = useState(false);
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -42,7 +43,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
     const fetchBoardDetailsCallback = async () => {
       if (selectedBoard) {
         try {
-          const response = await fetch(`/api/boards/${selectedBoard}`, {
+          const response = await fetch(`${apiUrl}/api/boards/${selectedBoard}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

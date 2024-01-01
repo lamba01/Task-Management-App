@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './signup.css';
 
 function SignUp() {
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -22,7 +23,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch(`${apiUrl}/api/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -16,6 +16,7 @@ function BoardList({ refreshBoardList }) {
   const [boards, setBoards] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
   const navigate = useNavigate();
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/'; 
 
   // Register the callback for task updates
   useEffect(() => {
@@ -49,7 +50,8 @@ function BoardList({ refreshBoardList }) {
           navigate('/login');
           return;
         }
-        const response = await fetch('/api/boards', {
+        
+        const response = await fetch(`${apiUrl}/api/boards`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -98,7 +100,7 @@ const handleBoardSelect = async (boardId) => {
 const fetchTasks = async (boardId) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch(`/api/tasks/${boardId}`, {
+    const response = await fetch(`${apiUrl}/api/tasks/${boardId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

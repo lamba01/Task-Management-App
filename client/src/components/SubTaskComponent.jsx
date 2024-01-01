@@ -4,6 +4,7 @@ import './styles/subtaskcomponent.css';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import TaskForm from '../modal/TaskForm';
 import DeleteTaskComponent from './DeleteTaskComponent';
+const apiUrl = 'https://taskkmanagement-server.vercel.app/';
 
 function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -26,7 +27,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     const fetchSubtasks = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`/api/subtasks/${taskId}`, {
+        const response = await fetch(`${apiUrl}/api/subtasks/${taskId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     const fetchTaskStatus = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`/api/task/${taskId}/status`, {
+        const response = await fetch(`${apiUrl}/api/task/${taskId}/status`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     // Update the task status in the backend
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/task/${taskId}/status`, {
+      const response = await fetch(`${apiUrl}/api/task/${taskId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -10,6 +10,7 @@ function TaskComponent({ status }) {
   const [subtasksLengths, setSubtasksLengths] = useState({});
   const navigate = useNavigate();
   const { tasks } = useTask();
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -27,7 +28,7 @@ function TaskComponent({ status }) {
 
         // Adjust the API endpoint and headers based on your backend
         for (const task of tasks) {
-          const response = await fetch(`/api/subtasks/${task.task_id}`, {
+          const response = await fetch(`${apiUrl}/api/subtasks/${task.task_id}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

@@ -9,6 +9,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
   const { updateBoard } = useBoardUpdate();
   const [boardName, setBoardName] = useState('');
   const navigate = useNavigate();
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
 
   useEffect(() => {
     if (selectedBoard) {
@@ -19,7 +20,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
   // Function to fetch board details
   const fetchBoardDetails = async (boardId) => {
     try {
-      const response = await fetch(`/api/boards/${boardId}`, {
+      const response = await fetch(`${apiUrl}/api/boards/${boardId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +53,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
         }
        
       // Example fetch request:
-      const response = await fetch(`/api/boards/${selectedBoard}`, {
+      const response = await fetch(`${apiUrl}/api/boards/${selectedBoard}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

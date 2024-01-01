@@ -16,6 +16,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
     subTasks: [''],
     status: 'Todo',
   });
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
 
   // Effect to initialize form data when in edit mode
   useEffect(() => {
@@ -99,7 +100,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
      
       
         // Creating a new task
-        const response = await fetch('/api/tasks', {
+        const response = await fetch(`${apiUrl}/api/tasks`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -146,7 +147,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
         return;
       }
       console.log(initialValues.taskId)
-      const response = await fetch(`/api/tasks/${initialValues.taskId}`, {
+      const response = await fetch(`${apiUrl}/api/tasks/${initialValues.taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

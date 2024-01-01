@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function BoardForm({ onClose, onBoardAdded }) {
   const navigate = useNavigate()
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
 
   const [formData, setFormData] = useState({
     board: ''
@@ -28,7 +29,7 @@ function BoardForm({ onClose, onBoardAdded }) {
         return;
       }
   
-      const response = await fetch('/api/add-board', {
+      const response = await fetch(`${apiUrl}/api/add-board`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

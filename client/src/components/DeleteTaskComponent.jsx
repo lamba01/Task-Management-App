@@ -3,8 +3,9 @@ import "./styles/deletetaskcomponent.css";
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 
 function DeleteTaskComponent({ onClose, closeDropdown, initialValues, closeSubComponent }) {
-    const { updateTask } = useTaskUpdate();
+  const { updateTask } = useTaskUpdate();
   const [loading, setLoading] = useState(false);
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
 
   const handleDelete = async () => {
     try {
@@ -12,7 +13,7 @@ function DeleteTaskComponent({ onClose, closeDropdown, initialValues, closeSubCo
       const token = localStorage.getItem('token');
 
       // Assuming you have an API endpoint for deleting tasks, adjust the URL accordingly
-      const response = await fetch(`/api/tasks/${initialValues.taskId}`, {
+      const response = await fetch(`${apiUrl}/api/tasks/${initialValues.taskId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

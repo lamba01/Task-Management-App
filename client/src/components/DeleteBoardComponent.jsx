@@ -10,6 +10,7 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
     const [boardName, setBoardName] = useState('');
     const [loading, setLoading] = useState(false);
     const [showSelectBoardPopup, setShowSelectBoardPopup] = useState(false);
+    const apiUrl = 'https://taskkmanagement-server.vercel.app/'; 
 
     useEffect(() => {
         if (selectedBoard) {
@@ -31,7 +32,7 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
         // Function to fetch board details
   const fetchBoardDetails = async (boardId) => {
     try {
-      const response = await fetch(`/api/boards/${boardId}`, {
+      const response = await fetch(`${apiUrl}/api/boards/${boardId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
       const token = localStorage.getItem('token');
 
       // Assuming you have an API endpoint for deleting tasks, adjust the URL accordingly
-      const response = await fetch(`/api/boards/${selectedBoard}`, {
+      const response = await fetch(`${apiUrl}/api/boards/${selectedBoard}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

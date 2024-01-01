@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './login.css'; 
 
 const Login = () => {
+  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,7 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response =  await axios.post('/api/login', formData, {
+      const response =  await axios.post(`${apiUrl}/api/login`, formData, {
         withCredentials: true,
       });
 
