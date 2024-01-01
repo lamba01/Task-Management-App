@@ -5,7 +5,7 @@ import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 function DeleteTaskComponent({ onClose, closeDropdown, initialValues, closeSubComponent }) {
   const { updateTask } = useTaskUpdate();
   const [loading, setLoading] = useState(false);
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   const handleDelete = async () => {
     try {

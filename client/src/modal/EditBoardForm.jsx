@@ -9,7 +9,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
   const { updateBoard } = useBoardUpdate();
   const [boardName, setBoardName] = useState('');
   const navigate = useNavigate();
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   useEffect(() => {
     if (selectedBoard) {

@@ -10,7 +10,7 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
     const [boardName, setBoardName] = useState('');
     const [loading, setLoading] = useState(false);
     const [showSelectBoardPopup, setShowSelectBoardPopup] = useState(false);
-    const apiUrl = 'https://taskkmanagement-server.vercel.app/'; 
+    const apiUrl = 'https://taskkmanagement-server.vercel.app'; 
 
     useEffect(() => {
         if (selectedBoard) {

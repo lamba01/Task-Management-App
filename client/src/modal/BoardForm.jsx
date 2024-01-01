@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function BoardForm({ onClose, onBoardAdded }) {
   const navigate = useNavigate()
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   const [formData, setFormData] = useState({
     board: ''

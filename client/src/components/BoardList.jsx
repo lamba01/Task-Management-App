@@ -16,7 +16,7 @@ function BoardList({ refreshBoardList }) {
   const [boards, setBoards] = useState([]);
   const [selectedBoardId, setSelectedBoardId] = useState(null);
   const navigate = useNavigate();
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/'; 
+  const apiUrl = 'https://taskkmanagement-server.vercel.app'; 
 
   // Register the callback for task updates
   useEffect(() => {

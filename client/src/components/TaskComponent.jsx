@@ -10,7 +10,7 @@ function TaskComponent({ status }) {
   const [subtasksLengths, setSubtasksLengths] = useState({});
   const navigate = useNavigate();
   const { tasks } = useTask();
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   useEffect(() => {
     const token = localStorage.getItem('token');

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './signup.css';
 
 function SignUp() {
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
   const [formData, setFormData] = useState({
     username: '',
     email: '',

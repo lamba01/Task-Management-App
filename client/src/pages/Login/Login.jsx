@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import './login.css'; 
 
 const Login = () => {
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
   const [formData, setFormData] = useState({
     email: "",
     password: "",

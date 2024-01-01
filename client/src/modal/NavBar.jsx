@@ -18,7 +18,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const [BoardName, setBoardName] = useState('');
   const [isBoardFormOpen, setBoardFormOpen] = useState(false);
   const [isDeleteBoardOpen, setDeleteBoardOpen] = useState(false);
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);

@@ -16,7 +16,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
     subTasks: [''],
     status: 'Todo',
   });
-  const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   // Effect to initialize form data when in edit mode
   useEffect(() => {

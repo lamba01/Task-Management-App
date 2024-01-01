@@ -4,7 +4,7 @@ import './styles/subtaskcomponent.css';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import TaskForm from '../modal/TaskForm';
 import DeleteTaskComponent from './DeleteTaskComponent';
-const apiUrl = 'https://taskkmanagement-server.vercel.app/';
+
 
 function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -18,7 +18,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     return storedCheckedSubtasks ? JSON.parse(storedCheckedSubtasks) : [];
   });
   const [currentStatus, setCurrentStatus] = useState(''); 
-
+  const apiUrl = 'https://taskkmanagement-server.vercel.app';
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
