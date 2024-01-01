@@ -24,7 +24,7 @@ app.use(cookieParser());
 // app.use(cors());
 // Enable CORS for all routes or specify origins explicitly
 const corsOptions = {
-  origin: "http://localhost:3001/",
+  origin: "http://localhost:3001",
   credentials: true,
 };
 
