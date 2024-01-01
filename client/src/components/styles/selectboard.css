@@ -1,0 +1,24 @@
+.selectboard-container p {
+  color: red;
+}
+.ss {
+  position: fixed;
+  width: 100vw;
+  height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #0000001a;
+  z-index: 996;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.selectboard-container {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2b2c37;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 999;
+}

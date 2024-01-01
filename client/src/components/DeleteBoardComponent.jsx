@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useBoard } from '../contexts/BoardContext';
 import { useBoardUpdate } from '../contexts/BoardupdateContext';
+import SelectBoard from './SelectBoard';
 import "./styles/deletetaskcomponent.css";
 
 function DeleteBoardComponent({ onClose, onCloseComponent }) {
@@ -8,13 +9,24 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
     const { updateBoard } = useBoardUpdate();
     const [boardName, setBoardName] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showSelectBoardPopup, setShowSelectBoardPopup] = useState(false);
 
     useEffect(() => {
         if (selectedBoard) {
           fetchBoardDetails(selectedBoard);               
         }else {
-            alert("select a board")
-        }
+          setShowSelectBoardPopup(true);
+
+          // Hide the popup after 5 seconds
+          const timeoutId = setTimeout(() => {
+              setShowSelectBoardPopup(false);
+          }, 3000);
+
+          return () => {
+              // Clear the timeout when the component is unmounted
+              clearTimeout(timeoutId);
+          };
+      }
       }, [selectedBoard]);
         // Function to fetch board details
   const fetchBoardDetails = async (boardId) => {
@@ -76,21 +88,28 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
   }
     
   return (
-    <div className='delete-task-container'>
-    <div className="overlayy"></div>
-    <div className="delete">
-      <h3>Delete this task?</h3>
-      <p> Are you sure you want to delete the <strong>"{boardName}"</strong>  board? This action will remove all columns and tasks and cannot be reversed.</p>
-      <div className="buttons">
-        <button className='delete-btn' onClick={handleDelete}  disabled={loading}>
-          {loading ? 'Deleting...' : 'Delete'}
-        </button>
-        <button className='cancel-btn' onClick={handleClose} disabled={loading}>
-          Cancel
-        </button>
+    <>
+    {selectedBoard ? (
+      <div className='delete-task-container'>
+      <div className="overlayy"></div>
+      <div className="delete">
+        <h3>Delete this task?</h3>
+        
+        <p> Are you sure you want to delete the <strong>"{boardName}"</strong>  board? This action will remove all columns and tasks and cannot be reversed.</p>
+        <div className="buttons">
+          <button className='delete-btn' onClick={handleDelete}  disabled={loading}>
+            {loading ? 'Deleting...' : 'Delete'}
+          </button>
+          <button className='cancel-btn' onClick={handleClose} disabled={loading}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+    ): (
+      showSelectBoardPopup && <SelectBoard />
+    )}
+</>
   )
 }
 

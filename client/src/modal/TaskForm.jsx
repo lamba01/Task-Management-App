@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoClose } from 'react-icons/io5';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
+import { useBoard } from '../contexts/BoardContext';
 import './styles/taskform.css';
 
 const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
   const { updateTask } = useTaskUpdate();
+  const { selectedBoard } = useBoard();
   const navigate = useNavigate();
   const [subTasks, setSubTasks] = useState(['']);
   const [formData, setFormData] = useState({
@@ -69,7 +71,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
     setSubTasks(updatedSubTasks);
   };
 
-  const selectedBoardId = localStorage.getItem('selectedBoardId');
+  // const selectedBoardId = localStorage.getItem('selectedBoardId');
 
   const handleCreateTask = async (event) => {
     event.preventDefault();
@@ -83,7 +85,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
       taskName: formData.taskName,
       description: formData.description,
       subTasks: formData.subTasks.filter((subTask) => subTask.trim() !== ''),
-      boardId: selectedBoardId,
+      boardId: selectedBoard,
       status: formData.status,
     };
 
@@ -118,7 +120,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
         taskName: '',
         description: '',
         subTasks: [''],
-        boardId: selectedBoardId,
+        boardId: selectedBoard,
       });
       onClose();
     } catch (error) {
@@ -166,7 +168,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
         taskName: '',
         description: '',
         subTasks: [''],
-        boardId: selectedBoardId,
+        boardId: selectedBoard,
       });
       onClose();
       closeSubComponent();
@@ -225,9 +227,16 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
               Edit Task
             </button>
           ) : (
-            <button onClick={handleCreateTask} type="button" className="submittaskbtn">
+            <button onClick={handleCreateTask} type="button" disabled={!selectedBoard}  className="submittaskbtn">
               Create Task
             </button>
+          )}
+          {!selectedBoard ? (
+              <p className="select-board-message">
+              Please select a board to add a task.
+            </p>
+          ):(
+            null
           )}
         </form>
       </div>

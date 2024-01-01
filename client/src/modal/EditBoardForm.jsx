@@ -96,7 +96,14 @@ function EditBoardForm({ onClose, onCloseComponent }) {
                     onChange={handleInputChange}
                 />
             </div>              
-               <button type="submit" className='submit-board-edit'>Save Changes</button>
+               <button type="submit" disabled={!selectedBoard} className='submit-board-edit'>Save Changes</button>
+               {!selectedBoard ? (
+              <p className="select-board-message">
+              Please select a board to edit.
+            </p>
+          ):(
+            null
+          )}
         </form>      
     </div>
   );

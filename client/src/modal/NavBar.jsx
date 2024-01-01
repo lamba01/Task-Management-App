@@ -25,6 +25,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
 
   const toggleBoarddelete = () => {
     setDeleteBoardOpen(!isDeleteBoardOpen);
+    toggleDropdown()
   };
 
   const toggleTaskform = () => {

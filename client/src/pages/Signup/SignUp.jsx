@@ -35,8 +35,15 @@ function SignUp() {
       if (!response.ok) {
         console.error('Server returned an error:', response.status, response.statusText);
       } else {
+        const responseData = await response.json();
         console.log('User signed up successfully');
-        navigate('/login'); // Redirect to the login page
+        console.log('Token:', responseData.token);
+
+        // Save the token to local storage
+        localStorage.setItem('token', responseData.token);
+  
+        // Redirect or navigate to the desired page (e.g., user's dashboard)
+        navigate('/');
       }
     } catch (error) {
       console.error('Error during fetch:', error);
