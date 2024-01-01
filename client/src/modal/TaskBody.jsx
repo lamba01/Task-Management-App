@@ -5,7 +5,7 @@ import TaskComponent from '../components/TaskComponent';
 import { useTask } from '../contexts/TaskContext';
 
 function TaskBody() {
-  const [activeColumn, setActiveColumn] = useState(null);
+  const [activeColumn, setActiveColumn] = useState('Todo');
   const { tasks } = useTask();
 
   const getTaskCount = (status) => {
