@@ -159,6 +159,7 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
       console.log('Successfully updated task');
       updateTask();
       onSuccess();
+      closeSubComponent();
        // Delete checked subtasks from local storage
     localStorage.removeItem(`checkedSubtasks-${initialValues.taskId}`);
       setFormData({
@@ -167,7 +168,6 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
         subTasks: [''],
         boardId: selectedBoard,
       });
-      closeSubComponent();
     } catch (error) {
       console.error('Error during task update:', error);
     }
