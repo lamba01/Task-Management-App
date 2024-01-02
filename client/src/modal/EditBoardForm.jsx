@@ -94,6 +94,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
                     value={boardName}
                     className='editinput'
                     onChange={handleInputChange}
+                    required
                 />
             </div>              
                <button type="submit" disabled={!selectedBoard} className='submit-board-edit'>Save Changes</button>

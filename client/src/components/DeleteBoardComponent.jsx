@@ -95,7 +95,6 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
       <div className="overlayy"></div>
       <div className="delete">
         <h3>Delete this task?</h3>
-        
         <p> Are you sure you want to delete the <strong>"{boardName}"</strong>  board? This action will remove all columns and tasks and cannot be reversed.</p>
         <div className="buttons">
           <button className='delete-btn' onClick={handleDelete}  disabled={loading}>

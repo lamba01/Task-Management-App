@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { IoClose } from 'react-icons/io5';
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 import { useBoard } from '../contexts/BoardContext';
+import AddedTask from '../components/AddedTask';
 import './styles/taskform.css';
 
 const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
   const { updateTask } = useTaskUpdate();
   const { selectedBoard } = useBoard();
+  const [showSelectBoardPopup, setShowSelectBoardPopup] = useState(false);
   const navigate = useNavigate();
   const [subTasks, setSubTasks] = useState(['']);
   const [formData, setFormData] = useState({
@@ -17,6 +19,18 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
     status: 'Todo',
   });
   const apiUrl = 'https://taskkmanagement-server.vercel.app';
+
+  const successMsg = () => {
+    setShowSelectBoardPopup(true);
+       // Hide the popup after 5 seconds
+      const timeoutId = setTimeout(() => {
+        setShowSelectBoardPopup(false);
+      }, 3000);
+      return () => {
+          // Clear the timeout when the component is unmounted
+          clearTimeout(timeoutId);
+      };
+  }
 
   // Effect to initialize form data when in edit mode
   useEffect(() => {
@@ -95,9 +109,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
       if (!token) {
         navigate('/login');
         return;
-      }
-     
-      
+      }      
         // Creating a new task
         const response = await fetch(`${apiUrl}/api/tasks`, {
           method: 'POST',
@@ -115,7 +127,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
 
       console.log('Successfully created task');
       updateTask();
-
+      successMsg()
       setFormData({
         taskName: '',
         description: '',
@@ -162,6 +174,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
 
       console.log('Successfully updated task');
       updateTask();
+      successMsg()
        // Delete checked subtasks from local storage
     localStorage.removeItem(`checkedSubtasks-${initialValues.taskId}`);
       setFormData({
@@ -182,6 +195,7 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
   };
 
   return (
+    <>
     <div className="taskform-container">
       <div className="overlayy"></div>
       <div className="container">
@@ -241,6 +255,12 @@ const TaskForm = ({ onClose, initialValues, closeSubComponent }) => {
         </form>
       </div>
     </div>
+    {showSelectBoardPopup ? (
+      <AddedTask />
+    ):(
+      null
+    )}
+    </>
   );
 };
 

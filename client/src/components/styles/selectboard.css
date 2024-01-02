@@ -1,6 +1,9 @@
 .selectboard-container p {
   color: red;
 }
+.addedtask-container p {
+  color: #635fc7;
+}
 .ss {
   position: fixed;
   width: 100vw;
@@ -12,7 +15,8 @@
   justify-content: center;
   align-items: center;
 }
-.selectboard-container {
+.selectboard-container,
+.addedtask-container {
   position: fixed;
   top: 20%;
   left: 50%;
@@ -21,4 +25,9 @@
   padding: 20px;
   border-radius: 5px;
   z-index: 999;
+}
+@media (max-width: 767px) {
+  .selectboard-container {
+    width: 70%;
+  }
 }
