@@ -21,14 +21,16 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
           // Hide the popup after 5 seconds
           const timeoutId = setTimeout(() => {
               setShowSelectBoardPopup(false);
+              onClose();
+              onCloseComponent();
           }, 3000);
-
           return () => {
               // Clear the timeout when the component is unmounted
               clearTimeout(timeoutId);
+
           };
       }
-      }, [selectedBoard]);
+      }, [selectedBoard, onClose, onCloseComponent]);
         // Function to fetch board details
   const fetchBoardDetails = async (boardId) => {
     try {

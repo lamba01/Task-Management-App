@@ -9,6 +9,7 @@ import { useBoard } from '../contexts/BoardContext';
 import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import EditBoardForm from './EditBoardForm';
 import DeleteBoardComponent from '../components/DeleteBoardComponent';
+import AddedTask from '../components/AddedTask';
 
 const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const { selectedBoard } = useBoard();
@@ -18,6 +19,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const [BoardName, setBoardName] = useState('');
   const [isBoardFormOpen, setBoardFormOpen] = useState(false);
   const [isDeleteBoardOpen, setDeleteBoardOpen] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   const toggleDropdown = () => {
@@ -36,6 +38,14 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const toggleBoardform = () => {
     setBoardFormOpen(!isBoardFormOpen)
   }
+  const handleSuccess = () => {
+    setShowSuccessMessage(true);
+
+    // Hide the success message after a certain duration
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
 
    // Fetch the selected board name when selectedBoard changes
    useEffect(() => {
@@ -101,7 +111,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
           </div>
         </div>
       </div>
-      {taskformVisible && <TaskForm onClose={toggleTaskform} />}
+      {taskformVisible && <TaskForm onClose={toggleTaskform} onSuccess={handleSuccess}/>}
       {isBoardFormOpen && (
         <EditBoardForm 
         onClose={toggleBoardform}
@@ -114,6 +124,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
         onCloseComponent={toggleDropdown}
         />
       )}
+      {showSuccessMessage && <AddedTask />}
     </nav>
   );
 };
