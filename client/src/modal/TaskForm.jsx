@@ -31,7 +31,6 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
     setSubTasks(initialValues?.subTasks || ['']);
   }, [initialValues]);
 
-
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     if (name === 'subTask') {
@@ -159,6 +158,7 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
       console.log('Successfully updated task');
       updateTask();
       onSuccess();
+      handleClose()
       closeSubComponent();
        // Delete checked subtasks from local storage
     localStorage.removeItem(`checkedSubtasks-${initialValues.taskId}`);

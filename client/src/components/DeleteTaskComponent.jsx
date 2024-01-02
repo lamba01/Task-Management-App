@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./styles/deletetaskcomponent.css";
 import { useTaskUpdate } from '../contexts/TaskUpdateContext';
 
-function DeleteTaskComponent({ onClose, closeDropdown, initialValues }) {
+function DeleteTaskComponent({ onClose, closeDropdown, initialValues, closeSubComponent }) {
   const { updateTask } = useTaskUpdate();
   const [loading, setLoading] = useState(false);
   const apiUrl = 'https://taskkmanagement-server.vercel.app';
@@ -28,6 +28,7 @@ function DeleteTaskComponent({ onClose, closeDropdown, initialValues }) {
         console.log('Task deleted successfully');
         updateTask(); 
         onClose();
+        closeSubComponent()
       }
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -36,6 +37,7 @@ function DeleteTaskComponent({ onClose, closeDropdown, initialValues }) {
     }
   };
   const handleClose = () => {
+    onClose()
     closeDropdown()
   }
 
