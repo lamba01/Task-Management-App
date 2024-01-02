@@ -157,7 +157,6 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
 
       console.log('Successfully updated task');
       updateTask();
-      onSuccess();
       handleClose()
       closeSubComponent();
        // Delete checked subtasks from local storage
