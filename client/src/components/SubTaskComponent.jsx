@@ -122,6 +122,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
     // Close TaskForm
     setTaskFormOpen(false);
     setDeleteOpen(false)
+    onClose()
   };
   const handleDeleteTask = () => {
     setDeleteOpen(true);
@@ -138,7 +139,6 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
           taskId: taskId
           }}
           onClose={handleClose}
-          closeSubComponent={onClose}
           closeDropdown={toggleDropdown}
         />
       )
@@ -152,8 +152,7 @@ function SubTaskComponent({ taskName, taskDescription, taskId, onClose }) {
               subTasks: subtasks.map((subtask) => subtask.subtask_name),
               status: currentStatus,
               }}
-              onClose={handleClose}
-              closeSubComponent={onClose}
+              closeSubComponent={handleClose}
             />
         )}
     <div className='subtaskcomp-container'>

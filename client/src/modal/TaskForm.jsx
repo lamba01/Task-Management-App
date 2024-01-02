@@ -139,7 +139,6 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        alert('You are not logged in. Please log in to add tasks.');
         navigate('/login');
         return;
       }
@@ -159,7 +158,7 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
 
       console.log('Successfully updated task');
       updateTask();
-      onSuccess()
+      onSuccess();
        // Delete checked subtasks from local storage
     localStorage.removeItem(`checkedSubtasks-${initialValues.taskId}`);
       setFormData({
@@ -168,7 +167,6 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
         subTasks: [''],
         boardId: selectedBoard,
       });
-      onClose();
       closeSubComponent();
     } catch (error) {
       console.error('Error during task update:', error);
