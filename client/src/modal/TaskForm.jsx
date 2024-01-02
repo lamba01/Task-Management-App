@@ -143,7 +143,6 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
         navigate('/login');
         return;
       }
-      console.log(initialValues.taskId)
       const response = await fetch(`${apiUrl}/api/tasks/${initialValues.taskId}`, {
         method: 'PUT',
         headers: {
@@ -159,8 +158,8 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
       }
 
       console.log('Successfully updated task');
-      onSuccess()
       updateTask();
+      onSuccess()
        // Delete checked subtasks from local storage
     localStorage.removeItem(`checkedSubtasks-${initialValues.taskId}`);
       setFormData({

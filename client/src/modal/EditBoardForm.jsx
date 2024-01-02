@@ -4,7 +4,7 @@ import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import { useNavigate } from 'react-router-dom';
 import "./styles/editboard.css"
 
-function EditBoardForm({ onClose, onCloseComponent }) {
+function EditBoardForm({ onClose, onCloseComponent, onEdit }) {
   const { selectedBoard } = useBoard();
   const { updateBoard } = useBoardUpdate();
   const [boardName, setBoardName] = useState('');
@@ -66,6 +66,7 @@ function EditBoardForm({ onClose, onCloseComponent }) {
         return;
       }    
       updateBoard()
+      onEdit()
       handleClose()
     } catch (error) {
       console.error('Error updating board name:', error);

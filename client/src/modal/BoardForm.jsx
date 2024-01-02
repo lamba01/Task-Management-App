@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import "./styles/boardform.css"
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import AddedBoard from '../components/AddedBoard';
+
 
 function BoardForm({ onClose, onBoardAdded }) {
   const navigate = useNavigate()
-  const [showSelectBoardPopup, setShowSelectBoardPopup] = useState(false);
   const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   const [formData, setFormData] = useState({
@@ -47,8 +46,7 @@ function BoardForm({ onClose, onBoardAdded }) {
       }
   
       console.log('Added board successfully');
-      successMsg()
-      // Trigger the onBoardAdded callback to inform the parent component
+       // Trigger the onBoardAdded callback to inform the parent component
       if (onBoardAdded) {
         onBoardAdded();
       }
@@ -63,30 +61,12 @@ function BoardForm({ onClose, onBoardAdded }) {
     }
 
   };
-  const successMsg = () => {
-    setShowSelectBoardPopup(true);
-       // Hide the popup after 5 seconds
-      const timeoutId = setTimeout(() => {
-        setShowSelectBoardPopup(false);
-      }, 3000);
-      return () => {
-          // Clear the timeout when the component is unmounted
-          clearTimeout(timeoutId);
-      };
-  }
-  
 
     const handleClose = () => {
         // Call the onClose function passed as a prop to close the component
         onClose();
       };
   return (
-    <>
-    {showSelectBoardPopup ? (
-      <AddedBoard />
-    ):(
-      null
-    )}
     <div className='form-container'>
         <div className="overlays"></div>
         <form onSubmit={handleSubmit} className='form'>
@@ -107,7 +87,6 @@ function BoardForm({ onClose, onBoardAdded }) {
             <button type="submit" className='submit-btn'>Create New Board</button>
         </form>
     </div>
-    </>
   )
 }
 

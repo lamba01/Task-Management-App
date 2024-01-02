@@ -10,6 +10,8 @@ import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import EditBoardForm from './EditBoardForm';
 import DeleteBoardComponent from '../components/DeleteBoardComponent';
 import AddedTask from '../components/AddedTask';
+import AddedBoard from '../components/AddedBoard';
+import DeleteMsg from '../components/DeleteMsg';
 
 const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const { selectedBoard } = useBoard();
@@ -20,6 +22,8 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
   const [isBoardFormOpen, setBoardFormOpen] = useState(false);
   const [isDeleteBoardOpen, setDeleteBoardOpen] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showEditSuccessMessage, setShowEditSuccessMessage] = useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
   const apiUrl = 'https://taskkmanagement-server.vercel.app';
 
   const toggleDropdown = () => {
@@ -44,6 +48,22 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
     // Hide the success message after a certain duration
     setTimeout(() => {
       setShowSuccessMessage(false);
+    }, 3000);
+  };
+  const handleEdit = () => {
+    setShowEditSuccessMessage(true);
+
+    // Hide the success message after a certain duration
+    setTimeout(() => {
+      setShowEditSuccessMessage(false);
+    }, 3000);
+  };
+  const handleDelete = () => {
+    setShowDeleteSuccessMessage(true);
+
+    // Hide the success message after a certain duration
+    setTimeout(() => {
+      setShowDeleteSuccessMessage(false);
     }, 3000);
   };
 
@@ -116,15 +136,19 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
         <EditBoardForm 
         onClose={toggleBoardform}
         onCloseComponent={toggleDropdown}
+        onEdit={handleEdit}
         />
       )} 
       {isDeleteBoardOpen && (
         <DeleteBoardComponent 
         onClose={toggleBoarddelete}
         onCloseComponent={toggleDropdown}
+        onDelete={handleDelete}
         />
       )}
       {showSuccessMessage && <AddedTask />}
+      {showEditSuccessMessage && <AddedBoard />}
+      {showDeleteSuccessMessage && <DeleteMsg />}
     </nav>
   );
 };

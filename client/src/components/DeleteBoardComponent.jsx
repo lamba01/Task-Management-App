@@ -4,7 +4,7 @@ import { useBoardUpdate } from '../contexts/BoardupdateContext';
 import SelectBoard from './SelectBoard';
 import "./styles/deletetaskcomponent.css";
 
-function DeleteBoardComponent({ onClose, onCloseComponent }) {
+function DeleteBoardComponent({ onClose, onCloseComponent, onDelete }) {
     const { selectedBoard } = useBoard();
     const { updateBoard } = useBoardUpdate();
     const [boardName, setBoardName] = useState('');
@@ -76,6 +76,7 @@ function DeleteBoardComponent({ onClose, onCloseComponent }) {
         // Task deleted successfully, you can perform additional actions if needed
         console.log('Board deleted successfully');
         onClose();
+        onDelete()
         updateBoard()
         onCloseComponent()
       }

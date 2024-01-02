@@ -5,7 +5,7 @@ function AddedTask() {
   return (
     <div className='ss'>
         <div className='addedtask-container'>
-            <p>Task added successfully</p>
+            <p>Task updated successfully</p>
         </div>
     </div>
   )

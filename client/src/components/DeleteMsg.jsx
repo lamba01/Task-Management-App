@@ -1,14 +1,14 @@
 import React from 'react'
 import "./styles/selectboard.css"
 
-function AddedBoard() {
+function DeleteMsg() {
   return (
     <div className='ss'>
         <div className='addedtask-container'>
-            <p>Board updated successfully</p>
+            <p>Board deleted successfully</p>
         </div>
     </div>
   )
 }
 
-export default AddedBoard
+export default DeleteMsg
