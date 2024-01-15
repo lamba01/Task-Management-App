@@ -154,7 +154,7 @@ const TaskForm = ({ onClose, onSuccess, initialValues, closeSubComponent }) => {
         console.error('Error updating task:', response.status, response.statusText);
         return;
       }
-
+      
       console.log('Successfully updated task');
       updateTask();
       handleClose()

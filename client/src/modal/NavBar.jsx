@@ -32,7 +32,6 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
 
   const toggleBoarddelete = () => {
     setDeleteBoardOpen(!isDeleteBoardOpen);
-    toggleDropdown()
   };
 
   const toggleTaskform = () => {
@@ -48,7 +47,7 @@ const NavBar = ({ toggleSidebar, isSidebarVisible }) => {
     // Hide the success message after a certain duration
     setTimeout(() => {
       setShowSuccessMessage(false);
-    }, 3000);
+    }, 1500);
   };
   const handleEdit = () => {
     setShowEditSuccessMessage(true);
