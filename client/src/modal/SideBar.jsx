@@ -28,6 +28,7 @@ function SideBar({ isVisible }) {
 
   return (
     <div className={`side ${isVisible ? 'visible' : 'novisible'}`}>
+      <div className="over"></div>
       <div className='sidebar'>
         <BoardList refreshBoardList={refreshBoardList} />
         <div className='new-board-btn' onClick={toggleForm}><img src={boardicon} className='boardicon' alt="board-icon" /><h4>+create new board</h4></div>
