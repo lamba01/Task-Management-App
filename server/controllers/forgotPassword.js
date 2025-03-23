@@ -23,7 +23,7 @@ async function forgotPassword(req, res) {
   try {
     // Check if user exists
     db.query(
-      "SELECT * FROM user WHERE email = ?",
+      "SELECT * FROM users WHERE email = ?",
       [email],
       async (err, results) => {
         if (err) {
@@ -37,7 +37,7 @@ async function forgotPassword(req, res) {
         const user = results[0]; // Get the user from the database
 
         // Generate Token
-        const token = jwt.sign({ id: user.id }, secretKey, {
+        const token = jwt.sign({ id: user.user_id }, secretKey, {
           expiresIn: "15m",
         });
 

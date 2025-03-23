@@ -51,7 +51,16 @@ app.get("/api/task/:taskId/status", getTaskStatusController);
 app.put("/api/task/:taskId/status", updateTaskStatusController);
 app.put("/api/tasks/:taskId", taskFormEditController);
 app.delete("/api/tasks/:taskId", deleteTaskController);
-app.post("/api/forgot-password", forgotPassword);
+// app.post("/api/forgot-password", forgotPassword);
+app.post(
+  "/api/forgot-password",
+  (req, res, next) => {
+    console.log("Forgot password request received:", req.body);
+    next();
+  },
+  forgotPassword
+);
+
 app.post("/api/reset-password/:token", resetPassword);
 
 app.get("/", (req, res) => {
