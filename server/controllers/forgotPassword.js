@@ -40,7 +40,7 @@ async function forgotPassword(req, res) {
         });
 
         // Send Reset Email
-        const resetLink = `https://commeercee.vercel.app/reset-password/${token}`;
+        const resetLink = `https://task-managementapp-client.vercel.app/reset-password/${token}`;
 
         try {
           await transporter.sendMail({
