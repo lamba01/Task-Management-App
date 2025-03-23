@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import "./forgotpassword.css";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -28,30 +29,34 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="form">
-      <div className="form-container">
-        <h2 className="header">Reset Password</h2>
-        {message && <p className="success-msg">{message}</p>}
-        {error && <p className="error-message">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="input">
-            <label>
-              New Password<span>*</span>
-            </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="text"
-            />
+    <main className="login-main">
+      <div className="login">
+        <div className="form">
+          <div className="form-container">
+            <h2 className="header">Reset Password</h2>
+            {message && <p className="success-msg">{message}</p>}
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleSubmit}>
+              <div className="input">
+                <label>
+                  New Password<span>*</span>
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="text"
+                />
+              </div>
+              <button className="reset-btn" type="submit">
+                Reset Password
+              </button>
+            </form>
           </div>
-          <button className="reset-btn" type="submit">
-            Reset Password
-          </button>
-        </form>
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 
