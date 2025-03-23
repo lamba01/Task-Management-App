@@ -32,6 +32,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
+console.log("SECRET_KEY:", process.env.SECRET_KEY);
 
 // Routes
 app.post("/api/signup", signupController);

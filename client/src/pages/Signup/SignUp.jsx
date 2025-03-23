@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import './signup.css';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import "./signup.css";
 
 function SignUp() {
-  const apiUrl = 'https://taskkmanagement-server.vercel.app';
+  const apiUrl = "https://taskkmanagement-server.vercel.app";
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
 
   const handleInputChange = (e) => {
@@ -24,30 +24,33 @@ function SignUp() {
     e.preventDefault();
     try {
       const response = await fetch(`${apiUrl}/api/signup`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-      console.log('Response Status:', response.status);
+      console.log("Response Status:", response.status);
 
       if (!response.ok) {
-        console.error('Server returned an error:', response.status, response.statusText);
+        console.error(
+          "Server returned an error:",
+          response.status,
+          response.statusText
+        );
       } else {
         const responseData = await response.json();
-        console.log('User signed up successfully');
-        console.log('Token:', responseData.token);
+        console.log("User signed up successfully");
 
         // Save the token to local storage
-        localStorage.setItem('token', responseData.token);
-  
+        localStorage.setItem("token", responseData.token);
+
         // Redirect or navigate to the desired page (e.g., user's dashboard)
-        navigate('/');
+        navigate("/");
       }
     } catch (error) {
-      console.error('Error during fetch:', error);
+      console.error("Error during fetch:", error);
     }
   };
 
@@ -68,7 +71,8 @@ function SignUp() {
               id="Email"
               onChange={handleInputChange}
               required
-            /><br />
+            />
+            <br />
             <input
               name="username"
               type="text"
@@ -77,7 +81,8 @@ function SignUp() {
               id="username"
               onChange={handleInputChange}
               required
-            /><br />
+            />
+            <br />
             <input
               name="password"
               type="password"
@@ -85,7 +90,8 @@ function SignUp() {
               className="password"
               onChange={handleInputChange}
               required
-            /><br />
+            />
+            <br />
             <button type="submit" className="btn-signup" id="do-signup">
               Register
             </button>

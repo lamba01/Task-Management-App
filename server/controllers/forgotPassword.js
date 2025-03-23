@@ -6,12 +6,14 @@ require("dotenv").config();
 
 const secretKey = process.env.SECRET_KEY;
 
-// Configure Nodemailer
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // Ensure you set up an App Password
+    pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false, // <-- This disables SSL certificate verification
   },
 });
 
