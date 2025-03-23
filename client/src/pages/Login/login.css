@@ -76,6 +76,13 @@
   color: white;
   float: right;
 }
+.forgot-text {
+  text-decoration: none;
+}
+.forgot-text:hover {
+  text-decoration: underline;
+  color: dimgray;
+}
 .separator {
   display: flex;
   align-items: center;

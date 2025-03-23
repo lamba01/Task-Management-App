@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Signup/SignUp";
+import ForgotPassword from "./components/auth/ForgotPassword";
 import { TaskUpdateProvider } from "./contexts/TaskUpdateContext";
 import { TaskProvider } from "./contexts/TaskContext";
 import { BoardProvider } from "./contexts/BoardContext";
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<SignUp />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
               </Routes>
             </BoardUpdateProvider>
           </BoardProvider>

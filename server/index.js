@@ -16,6 +16,9 @@ const taskFormEditController = require("./controllers/taskFormEditController");
 const navBoardFetch = require("./controllers/navBoardFetch");
 const deleteTaskController = require("./controllers/deleteTaskController");
 const updateBoardController = require("./controllers/updateBoardController");
+const forgotPassword = require("./controllers/forgotPassword");
+const resetPassword = require("./controllers/resetPassword");
+
 const app = express();
 
 // Middlewares
@@ -45,6 +48,8 @@ app.get("/api/task/:taskId/status", getTaskStatusController);
 app.put("/api/task/:taskId/status", updateTaskStatusController);
 app.put("/api/tasks/:taskId", taskFormEditController);
 app.delete("/api/tasks/:taskId", deleteTaskController);
+app.post("/api/forgot-password", forgotPassword);
+app.post("/api/reset-password/:token", resetPassword);
 
 app.get("/", (req, res) => {
   res.send("Hello, this is the root path!");
