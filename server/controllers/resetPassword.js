@@ -21,7 +21,7 @@ async function forgotPassword(req, res) {
 
     // Update password
     db.query(
-      "UPDATE users SET password = ? WHERE user_id = ?",
+      "UPDATE users SET password = ? WHERE id = ?",
       [hashedPassword, decoded.id],
       (err, result) => {
         if (err) {

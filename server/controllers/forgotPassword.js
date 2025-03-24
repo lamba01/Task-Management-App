@@ -37,7 +37,7 @@ async function forgotPassword(req, res) {
         const user = results[0]; // Get the user from the database
 
         // Generate Token
-        const token = jwt.sign({ id: user.user_id }, secretKey, {
+        const token = jwt.sign({ userId: user.id }, secretKey, {
           expiresIn: "15m",
         });
 
